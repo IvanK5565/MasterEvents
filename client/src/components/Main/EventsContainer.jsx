@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import EventCard from "./EventCard"; // Импортируем EventCard
-import "../styles/EventsContainer.css"; // Стили для контейнера
+import "@/styles/EventsContainer.css"; // Стили для контейнера
 
-const EventsContainer = ({ events }) => {
+const EventsContainer = ({ events, filter }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const eventsPerPage = 3; // Количество событий на странице
+  const eventsPerPage = 10;
 
   const startIndex = currentPage * eventsPerPage;
   const currentEvents = events.slice(startIndex, startIndex + eventsPerPage);
@@ -21,12 +21,14 @@ const EventsContainer = ({ events }) => {
     }
   };
 
+  
+
   return (
     <div className="events-container">
       <h1>События</h1>
       <div className="events-list">
         {currentEvents.map((event) => (
-          <EventCard key={event.id} id={event.id} eventName={event.name} />
+          <EventCard data={event} />
         ))}
       </div>
       <div className="navigation">

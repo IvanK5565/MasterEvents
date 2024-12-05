@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Header.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "@/styles/Header.css";
 
-const Header = () => {
+const Header = ({ setFilter }) => {
   const [searchQuery, setSearchQuery] = useState(""); // Состояние для текста поиска
-  const [dropdownOptions, setDropdownOptions] = useState([]); // Состояние для данных из запроса
   const [selectedOption, setSelectedOption] = useState(""); // Состояние для выбранного значения в списке
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
 
-  // Эффект для загрузки данных в выпадающий список
-  useEffect(() => {
-    // Эмуляция загрузки данных
-    const fetchData = async () => {
-      const data = ["Учитель", "Студент", "Администратор", "Технический персонал"];
-      setDropdownOptions(data); // Установка данных
-    };
-
-    fetchData();
-  }, []);
+  useEffect(()=>{
+    axios.get("http://localhost:8080/api/categories")
+        .then(responce => setCategories(responce.data.data));
+  }, [])
 
   // Обработчик отправки поиска
   const handleSearch = () => {
     console.log("Поиск:", searchQuery, "Категория:", selectedOption);
-    alert(`Поиск: "${searchQuery}", Категория: "${selectedOption}"`);
+    // alert(`Поиск: "${searchQuery}", Категория: "${selectedOption}"`);
+    const filter = {
+      lastname: searchQuery != "" ? searchQuery : null,
+      category: selectedOption != "" ? selectedOption : null,
+    }
+    if(setFilter == null){
+      navigate("/", {state:filter});
+    }
+    else setFilter(filter);
   };
 
   return (
     <header className="header">
       <div className="search-container">
         <input
-          type="text"
+          type="search"
           placeholder="Фамилия"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -38,12 +43,12 @@ const Header = () => {
           onChange={(e) => setSelectedOption(e.target.value)}
           className="dropdown"
         >
-          <option value="" disabled>
+          <option value="">
             Выберите категорию
           </option>
-          {dropdownOptions.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
+          {categories.map((option, index) => (
+            <option key={index} value={option.name}>
+              {option.name}
             </option>
           ))}
         </select>

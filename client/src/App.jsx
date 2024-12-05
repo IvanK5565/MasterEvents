@@ -1,46 +1,45 @@
-import { useState, useEffect } from 'react'
-import axios from "axios"
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import EventsPage from './EventsPage'; // Компонент для отображения списка событий
-import AddEventForm from './AddEventForm'; // Компонент для добавления нового события
-import EventContainer from '../components/EventsContainer'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "./Pages/MainPage";
+import CalendarPage from "./Pages/CalendarPage";
+import StatisticsPage from "./Pages/StatisticsPage";
+import EventDetailsPage from "./Pages/EventDetailsPage";
+import AdminPage from './Pages/AdminPage';
 
-function App() {
-    const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
+const events = [
+    {
+      id: '1',
+      name: "Событие 1",
+      describe: "Описание 1",
+      date: new Date(2024, 0, 15), // Январь
+      category: "Спорт",
+      attendeesYes: 50,
+      attendeesNo: 20,
+    },
+    {
+      id: '2',
+      name: "Событие 2",
+      describe: "Описание 2",
+      date: new Date(2024, 1, 10), // Февраль
+      category: "Музыка",
+      attendeesYes: 30,
+      attendeesNo: 15,
+    },
+    // Добавьте больше событий
+  ];
+   
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/statistics" element={<StatisticsPage events={events} />} />
+        <Route path="/event/:id" element={<EventDetailsPage />} />
+        <Route path="/admin" element={<AdminPage />} /> {/* Скрытый маршрут */}
+      </Routes>
+    </Router>
+  );
+};
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                await axios.get("http://localhost:8080/api/events")
-                    .then((responce) => {
-                        const data = responce.data.data;
-                        setEvents(data);
-                    });
-            }
-            catch (err) {
-                console.error('Ошибка при загрузке событий:', error);
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-        fetchEvents();
-    }, []);
-    console.log(events);
-    if (loading) {
-        return <p>Загрузка событий...</p>;
-    }
-
-    return <>
-        <Header />
-        <EventContainer events={events} />
-        <Footer />
-    </>;
-}
-
-export default App
+export default App;

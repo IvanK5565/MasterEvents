@@ -1,0 +1,18 @@
+.attendees {
+  margin-top: 20px;
+}
+
+.attendees p {
+  font-size: 18px;
+  color: #333;
+}
+
+.attendees ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.attendees li {
+  font-size: 16px;
+  color: #666;
+}

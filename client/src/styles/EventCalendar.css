@@ -1,0 +1,120 @@
+/* Общий стиль календаря */
+.calendar {
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Заголовок календаря */
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .calendar-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .calendar-header button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .calendar-header button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Сетка календаря */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  /* Заголовки дней недели */
+  .calendar-day-header {
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 0;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Ячейки дней */
+  .calendar-day {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    height: 120px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .calendar-day.empty {
+    border: none;
+    background: none;
+  }
+  
+  /* Номер дня */
+  .day-number {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Стиль заголовков событий */
+  .event-title {
+    font-size: 12px;
+    margin-top: 4px;
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 4px 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 600px) {
+    .calendar {
+      padding: 8px;
+    }
+  
+    .calendar-header h2 {
+      font-size: 18px;
+    }
+  
+    .calendar-day {
+      height: 100px;
+      padding: 6px;
+    }
+  
+    .event-title {
+      font-size: 10px;
+    }
+  }
+  

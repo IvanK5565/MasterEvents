@@ -5,10 +5,11 @@ const User = require("../models/User");
 router.get('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const { filter } = req.query;
+    const user = await User.findOne(filter);
 
     if (user) res.status(200).json(user);
-    else res.status(204).json({ email: req.body.email });
+    else res.sendStatus(404);
   }
   catch (err) {
     console.error(err);
