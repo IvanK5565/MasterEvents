@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "@/styles/Header.css";
 
@@ -30,6 +30,13 @@ const Header = ({ setFilter }) => {
 
   return (
     <header className="header">
+      <Link to="/" className="button">Головна</Link>
+    <Link to="/calendar" className="button">
+        Открыть календарь событий
+    </Link>
+    <Link to="/statistics" className="button">
+        Открыть статистику
+    </Link>
       <div className="search-container">
         <input
           type="search"

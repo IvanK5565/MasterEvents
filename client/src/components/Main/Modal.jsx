@@ -22,27 +22,41 @@ const Modal = ({ setShowModal, confirmResponse }) => {
     };
 
     const handleSubmit = async () => {
-        if(!email) {
+        if (!email) {
             setIsNewEmail(false);
             return;
         }
-        await axios.get("http://localhost:8080/api/users", {
-            params: {
-                filter: {
-                    email: email,
-                }
+        if (isNewEmail) {
+            if (!name) {
+                return;
             }
-        })
-            .then((res) => {
-                if (res) {
-                    handleCloseModal();
-                    confirmResponse(res.data._id);
+            await axios.post("http://localhost:8080/api/users", {params:{
+                email: email,
+                name: name
+            }})
+            handleCloseModal();
+            confirmResponse(res.data);
+        }
+        else {
+
+            await axios.get("http://localhost:8080/api/users", {
+                params: {
+                    filter: {
+                        email: email,
+                    }
                 }
             })
-            .catch((err) => {
-                setIsNewEmail(true);
-                console.error(err);
-            })
+                .then((res) => {
+                    if (res) {
+                        handleCloseModal();
+                        confirmResponse(res.data);
+                    }
+                })
+                .catch((err) => {
+                    setIsNewEmail(true);
+                    console.error(err);
+                })
+        }
     };
 
     return (

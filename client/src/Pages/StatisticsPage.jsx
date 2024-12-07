@@ -9,6 +9,7 @@ const StatisticsPage = () => {
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [votes, setVotes] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const [filteredCategory, setFilteredCategory] = useState("");
   const [statistics, setStatistics] = useState([]);
@@ -19,18 +20,20 @@ const StatisticsPage = () => {
 
   // Фильтруем данные по выбранной категории
   useEffect(() => {
-    try {
-      axios.get("http://localhost:8080/api/events")
-        .then(responce => setEvents(responce.data.data));
-      axios.get("http://localhost:8080/api/categories")
-        .then(responce => setCategories(responce.data.data));
-      axios.get("http://localhost:8080/api/votes")
-        .then(responce => setVotes(responce.data));
+    if (!loaded) {
+      try {
+        axios.get("http://localhost:8080/api/events")
+          .then(responce => setEvents(responce.data.data));
+        axios.get("http://localhost:8080/api/categories")
+          .then(responce => setCategories(responce.data.data));
+        axios.get("http://localhost:8080/api/votes")
+          .then(responce => setVotes(responce.data));
+          setLoaded(true);
+      }
+      catch (err) {
+        console.error('Ошибка при загрузке данных:', err);
+      }
     }
-    catch (err) {
-      console.error('Ошибка при загрузке данных:', err);
-    }
-
 
     const filteredEvents = events.filter((event) => {
       const categoryCheck = filteredCategory == "" || event.category == filteredCategory;
@@ -56,7 +59,9 @@ const StatisticsPage = () => {
     });
 
     setStatistics(monthlyStats);
-  }, [filteredCategory, events]);
+  }, [events, filteredCategory, currentYear]);
+
+  // setFilteredCategory("");
 
 
   return (

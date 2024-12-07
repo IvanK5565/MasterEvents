@@ -5,11 +5,11 @@ const Category = require('../models/Category');
 
 router.get('/', async (req, res) => {
     try {
-        const { _lastname, _category, page = 1 } = req.query;
+        const { _name, _category, page = 1 } = req.query;
         const filter = {};
         if (_category) filter.category = _category;
-        if (_lastname) filter.lastname = new RegExp(_lastname, 'i');
-
+        if (_name) filter.name = { $regex: _name, $options: 'i' };
+        
         // Вычисляем пропущенные записи для текущей страницы
         const skip = (parseInt(page) - 1) * 10;
 

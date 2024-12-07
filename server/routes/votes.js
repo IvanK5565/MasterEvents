@@ -1,20 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const Vote = require('../models/Vote')
+const {subscribe, unsubscribe} = require("../components/emailScheduler");
 
 router.post('/', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
     const { _vote, _event, _user } = req.body;
     console.log(req.body)
     if (_vote && _event && _user) {
-        const vote = new Vote({
+        const voteData = {
             vote: _vote,
-            event_id: _event,
-            user_id: _user
-        });
-        // сохраняем в бд
-        await vote.save();
-        res.status(200).json(vote);
+            event_id: _event._id,
+            user_id: _user._id
+        };
+
+        const findedVote = await Vote.findOne({event_id: _event._id, user_id: _user._id});
+        if(findedVote){
+          if(findedVote.vote != _vote){
+            updatedVote = await Vote.findOneAndUpdate(
+              {_id: findedVote._id},
+              {$set: {vote: _vote}},
+              {upsert: true}
+            )
+
+            if(_vote){
+              subscribe(_user,_event);
+            }
+            unsubscribe(_user,_event);
+            res.status(200).json(updatedVote);
+          }
+        }
+        else{
+          await new Vote(voteData).save();
+          res.status(200).json(voteData);
+        }
     }
     else {
         res.sendStatus(400);

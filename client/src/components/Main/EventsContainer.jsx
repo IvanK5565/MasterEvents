@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EventCard from "./EventCard"; // Импортируем EventCard
 import "@/styles/EventsContainer.css"; // Стили для контейнера
 
-const EventsContainer = ({ events, filter }) => {
+const EventsContainer = ({ events }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const eventsPerPage = 10;
 

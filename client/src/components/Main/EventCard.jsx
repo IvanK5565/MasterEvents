@@ -22,7 +22,7 @@ const EventCard = ({ data }) => {
     setResponse(tempResponce);
     axios.post("http://localhost:8080/api/votes", {
       _vote: tempResponce,
-      _event: id,
+      _event: data,
       _user: userId,
     })
   }

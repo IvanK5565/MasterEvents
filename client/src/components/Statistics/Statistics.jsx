@@ -36,7 +36,7 @@ const Statistics = ({ statistics, months, year }) => {
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={statistics}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" tickFormatter={(month) => `${month} месяц`} />
+                    <XAxis dataKey="month" tickFormatter={(month) => `${months[month]}`} />
                     <YAxis />
                     <Tooltip />
                     <Legend />

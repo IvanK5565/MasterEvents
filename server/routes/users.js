@@ -5,7 +5,7 @@ const User = require("../models/User");
 router.get('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
   try {
-    const { filter } = req.query;
+    const { filter } = req.body;
     const user = await User.findOne(filter);
 
     if (user) res.status(200).json(user);
@@ -19,12 +19,12 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  const { firstName, lastName, Email } = req.query;
+  const { name, email } = req.body.params;
   const newUser = new User({
-    firstname: firstName,
-    lastname: lastName,
-    email: Email
+    name: name,
+    email: email
   });
+  //console.log("..."+req.body.params.name);
   // сохраняем в бд
   try {
     await newUser.save();

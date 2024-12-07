@@ -3,7 +3,6 @@ const app = express();
 const userRoute = require('./routes/users')
 const eventRoute = require('./routes/events')
 const voteRoute = require('./routes/votes')
-const voteCountRoute = require('./routes/vote_count')
 
 const cors = require('cors');
 const corsOptoins = {
@@ -20,21 +19,9 @@ app.use((req, res, next) => {
 });
 
 const mongoose = require("mongoose");
-const User = require("./models/User");
-const Event = require("./models/Event");
-const Vote = require("./models/Vote");
 const Category = require("./models/Category");
 const mongoString = "mongodb://localhost:27017/"
 
-app.get('/api/magic', async (req, res) => {
-  const vote = new Vote({
-    vote: true,
-    event_id: '67477e0633f69e9f4117317f',
-    user_id: '6746488eacbb51d3c97cb3f1'
-  });
-  // сохраняем в бд
-  await vote.save();
-});
 app.get('/api', async (req, res) => {
   res.json({ fruits: ["apple", "orange", "banana"] });
 });
