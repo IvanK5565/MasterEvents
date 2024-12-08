@@ -3,6 +3,8 @@ const app = express();
 const userRoute = require('./routes/users')
 const eventRoute = require('./routes/events')
 const voteRoute = require('./routes/votes')
+const categoriesRoute = require('./routes/categories')
+const Event = require('./models/Event');
 
 const cors = require('cors');
 const corsOptoins = {
@@ -25,11 +27,45 @@ const mongoString = "mongodb://localhost:27017/"
 app.get('/api', async (req, res) => {
   res.json({ fruits: ["apple", "orange", "banana"] });
 });
-app.get('/api/categories', async (_, res) => {
-  cats = await Category.find({}, 'name');
-  return res.json({data:cats});
+
+
+app.get('/magic', async (req, res) => {
+  const rand = (max)=>Math.floor(Math.random() * max)//rand [0,max)
+  const cats = ["sport","music","holyday"]
+  let events = []
+  for(let i = 0; i < 10; i++){
+    try {
+      const event = new Event({
+          name: "Event "+ i,
+          describe: "Describe for " + i,
+          date: new Date(
+            2024,//year
+            11,//month
+            rand(31-10)+10,//day
+            rand(12)+10,//hours
+            rand(12)*5,//min
+          ),
+          category: cats[rand(3)],
+      })
+      console.log(rand(5));
+      await event.save();
+
+      const query = Category.findOne({ name: event.category });
+      if (query.name != event.category) {
+          newCat = new Category({ name: event.category });
+          await newCat.save();
+      }
+      events.push(event);
+
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Что-то пошло не так' });
+  }
+  }
+  res.status(200).json(events);
 });
 
+app.use("/api/categories", categoriesRoute);
 app.use("/api/users", userRoute);
 app.use("/api/events", eventRoute);
 app.use("/api/votes", voteRoute);

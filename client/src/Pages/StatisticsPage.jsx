@@ -23,9 +23,9 @@ const StatisticsPage = () => {
     if (!loaded) {
       try {
         axios.get("http://localhost:8080/api/events")
-          .then(responce => setEvents(responce.data.data));
+          .then(responce => setEvents(responce.data.events));
         axios.get("http://localhost:8080/api/categories")
-          .then(responce => setCategories(responce.data.data));
+          .then(responce => setCategories(responce.data));
         axios.get("http://localhost:8080/api/votes")
           .then(responce => setVotes(responce.data));
           setLoaded(true);

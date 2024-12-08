@@ -30,12 +30,19 @@ const Modal = ({ setShowModal, confirmResponse }) => {
             if (!name) {
                 return;
             }
-            await axios.post("http://localhost:8080/api/users", {params:{
+            await axios.post("http://localhost:8080/api/users", {
                 email: email,
                 name: name
-            }})
-            handleCloseModal();
-            confirmResponse(res.data);
+            }).then((res) => {
+                if (res) {
+                    handleCloseModal();
+                    console.log("---------------" + res.data)
+                    confirmResponse(res.data);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            })
         }
         else {
 

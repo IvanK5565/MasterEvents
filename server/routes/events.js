@@ -5,11 +5,10 @@ const Category = require('../models/Category');
 
 router.get('/', async (req, res) => {
     try {
-        const { _name, _category, page = 1 } = req.query;
-        const filter = {};
-        if (_category) filter.category = _category;
-        if (_name) filter.name = { $regex: _name, $options: 'i' };
-        
+        const { filter = {}, page = 1 } = req.query;
+        console.log("events get " + filter)
+        if (filter.name) filter.name = { $regex: filter.name, $options: 'i' };
+
         // Вычисляем пропущенные записи для текущей страницы
         const skip = (parseInt(page) - 1) * 10;
 
@@ -19,11 +18,11 @@ router.get('/', async (req, res) => {
         const total = await Event.countDocuments(filter);
 
         res.status(200).json({
-            total, // Общее количество записей
-            page: parseInt(page), // Текущая страница
-            pages: Math.ceil(total / 10), // Общее количество страниц
-            limit: 10, // Лимит записей на странице
-            data: events // Записи текущей страницы
+            total: total,
+            page: parseInt(page),
+            pages: Math.ceil(total / 10),
+            limit: 10,
+            events: events
         });
     } catch (err) {
         console.error(err);
@@ -32,7 +31,7 @@ router.get('/', async (req, res) => {
 });
 router.get('/one/', async (req, res) => {
     try {
-        const _id = req.body.id;
+        const _id = req.query.id;
         const event = await Event.findById(_id);
         res.status(200).json(event);
     } catch (err) {
@@ -43,7 +42,7 @@ router.get('/one/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { name, describe, date, category } = req.body;
-        const newEvent = Event({
+        const newEvent = new Event({
             name: name,
             describe: describe,
             date: date,

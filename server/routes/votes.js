@@ -26,12 +26,15 @@ router.post('/', async (req, res) => {
             if(_vote){
               subscribe(_user,_event);
             }
-            unsubscribe(_user,_event);
+            else unsubscribe(_user,_event);
             res.status(200).json(updatedVote);
           }
         }
         else{
           await new Vote(voteData).save();
+          if(_vote){
+            subscribe(_user,_event);
+          }
           res.status(200).json(voteData);
         }
     }
@@ -41,7 +44,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    if (!req.body) return res.sendStatus(400);
+    if (!req.query) return res.sendStatus(400);
     const votes = await Vote.find();
     res.status(200).json(votes);
 })
@@ -49,10 +52,8 @@ router.get('/', async (req, res) => {
 router.get('/count/', async (req, res) => {
     //return res.json({status: "Bad"})
     //if (!req.body) return res.sendStatus(400);
-    const id = req.query.id;
-    const vote = req.query.vote;
+    const {id, vote} = req.query;
     if (!id || !vote) {
-      console.log('body:' + id);
       return res.sendStatus(401);
     }
     else {

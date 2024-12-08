@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "@/styles/EventDetailsPage.css";
-import Modal from "../components/Main/Modal";
+import Modal from "@/components/Main/Modal";
+import Header from "@/components/Header.jsx";
+import Footer from "@/components/Footer.jsx";
 
 const EventDetailsPage = () => {
   const [vote_count, setVoteCount] = useState(0);
@@ -63,6 +65,7 @@ const EventDetailsPage = () => {
 
   return (
     <div className="event-details-page">
+      <Header/>
       <h1>{event.name}</h1>
       <p><strong>Описание:</strong> {event.describe}</p>
       <p><strong>Дата:</strong> {new Date(event.date).toLocaleDateString()}</p>
@@ -94,6 +97,7 @@ const EventDetailsPage = () => {
           Вернуться на главную страницу
         </button>
       </div>
+      <Footer/>
     </div>
   );
 };

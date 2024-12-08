@@ -18,12 +18,12 @@ const EventCard = ({ data }) => {
     setShowModal(true);
     setTempResp(v.target.value);
   }
-  const confirmResponce = (userId) => {
+  const confirmResponce = (user) => {
     setResponse(tempResponce);
     axios.post("http://localhost:8080/api/votes", {
       _vote: tempResponce,
       _event: data,
-      _user: userId,
+      _user: user,
     })
   }
 
@@ -44,7 +44,7 @@ const EventCard = ({ data }) => {
   return (
     <div className="event-card">
       <h3 className="event-name">{eventName}</h3>
-      <p className="event-date">Дата: {Date(eventDate)}</p>
+      <p className="event-date">Дата: {eventDate}</p>
       <p className="event-id">ID события: {id}</p>
       <p className="event-id">Количество записавшихся: {vote_count}</p>
       <Link className="button" to={`/event/${id}`} state={data}>Детальніше</Link>

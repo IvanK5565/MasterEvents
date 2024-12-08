@@ -1,24 +1,15 @@
 import React, { useState } from "react";
-import EventCard from "./EventCard"; // Импортируем EventCard
-import "@/styles/EventsContainer.css"; // Стили для контейнера
+import EventCard from "./EventCard";
+import "@/styles/EventsContainer.css";
 
-const EventsContainer = ({ events }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const eventsPerPage = 10;
-
-  const startIndex = currentPage * eventsPerPage;
-  const currentEvents = events.slice(startIndex, startIndex + eventsPerPage);
+const EventsContainer = ({ events, page, last, setPage }) => {
 
   const handleNext = () => {
-    if (startIndex + eventsPerPage < events.length) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
+      setPage(page + 1);
   };
 
   const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
+      setPage(page - 1);
   };
 
   
@@ -27,7 +18,7 @@ const EventsContainer = ({ events }) => {
     <div className="events-container">
       <h1>События</h1>
       <div className="events-list">
-        {currentEvents.map((event) => (
+        {events.map((event) => (
           <EventCard data={event} />
         ))}
       </div>
@@ -35,14 +26,15 @@ const EventsContainer = ({ events }) => {
         <button
           className="nav-button"
           onClick={handlePrevious}
-          disabled={currentPage === 0}
+          disabled={page === 0}
         >
           ← Назад
         </button>
+        <p> {page} </p>
         <button
           className="nav-button"
           onClick={handleNext}
-          disabled={startIndex + eventsPerPage >= events.length}
+          disabled={page === last}
         >
           Вперед →
         </button>

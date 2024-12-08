@@ -5,7 +5,7 @@ const subscribe = (user, event) => {
     const now = Date.now();
     const delay = eventTime - now;
 
-    sendEmail(user.email, "Запис на подію", `Ви записані на подію: ${event.name}, яка запланована на ${eventTime.toLocaleString()}`)
+    sendEmail(user.email, "Запис на подію", `Ви записані на подію: ${event.name}, яка запланована на ${eventTime}`)
 
     if(delay < 0){
         console.log('Подія пройшла чи залишилось менше години.');
@@ -25,7 +25,7 @@ const subscribe = (user, event) => {
 const unsubscribe = (user, event) => {
     const eventTime = new Date(event.date).getTime();
 
-    sendEmail(user.email, "Відмова від події", `Ви відмовились від події: ${event.name}, яка запланована на ${eventTime.toLocaleString()}`)
+    sendEmail(user.email, "Відмова від події", `Ви відмовились від події: ${event.name}, яка запланована на ${eventTime}`)
     console.log(`Відмова від події: ${user.email}`);
 
 };

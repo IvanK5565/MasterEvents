@@ -1,4 +1,4 @@
-const login = "ivan.kz5565@gmail.com"
-const pass = "0970509494_IvAn"
+const login = "blackpuma072@gmail.com"
+const pass = "glma zodn yofx dhjn"
 
 module.exports = {login, pass}

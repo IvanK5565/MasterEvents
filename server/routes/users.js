@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require("../models/User");
 
 router.get('/', async (req, res) => {
-  if (!req.body) return res.sendStatus(400);
+  if (!req.query) return res.sendStatus(400);
   try {
-    const { filter } = req.body;
+    const { filter } = req.query;
     const user = await User.findOne(filter);
 
     if (user) res.status(200).json(user);
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  const { name, email } = req.body.params;
+  const { name, email } = req.body;
   const newUser = new User({
     name: name,
     email: email
@@ -28,6 +28,7 @@ router.post('/', async (req, res) => {
   // сохраняем в бд
   try {
     await newUser.save();
+    console.log("-----------" + newUser)
     res.status(200).json(newUser);
   }
   catch (err) {
