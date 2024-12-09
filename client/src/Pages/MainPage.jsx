@@ -16,13 +16,16 @@ function MainPage() {
     useEffect(() => {
         if(page > lastPage) setPage(lastPage);
     },[lastPage])
+    useEffect(() => {
+        if(location.state){
+            setFilter(location.state);
+            location.state = null;
+          }
+    },[])
     
     useEffect(() => {
         try {
-            if(location.state){
-                setFilter(location.state);
-                location.state = null;
-              }
+            
             axios.get("http://localhost:8080/api/events", {params:{filter:filter, page:page}})
                 .then(responce => {
                     const {total, page, pages,limit,events} = responce.data;
