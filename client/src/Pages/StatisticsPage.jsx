@@ -9,30 +9,32 @@ const StatisticsPage = () => {
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [votes, setVotes] = useState([]);
-  const [loaded, setLoaded] = useState(false);
 
   const [filteredCategory, setFilteredCategory] = useState("");
   const [statistics, setStatistics] = useState([]);
   const [years, setYears] = useState([]);
   const [currentYear, setCurYear] = useState("");
   const months = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
-  // const categories = ["Все категории", ...new Set(events.map((e) => e.category))];
 
-  // Фильтруем данные по выбранной категории
   useEffect(() => {
-    if (!loaded) {
-      try {
-        axios.get("http://localhost:8080/api/events")
-          .then(responce => setEvents(responce.data.events));
-        axios.get("http://localhost:8080/api/categories")
-          .then(responce => setCategories(responce.data));
-        axios.get("http://localhost:8080/api/votes")
-          .then(responce => setVotes(responce.data));
-          setLoaded(true);
-      }
-      catch (err) {
-        console.error('Ошибка при загрузке данных:', err);
-      }
+    try {
+      axios.get("http://localhost:8080/api/events/all")
+        .then(responce => setEvents(responce.data));
+    }
+    catch (err) {
+      console.error('Помилка завантаження:', err);
+    }
+  },[])
+
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:8080/api/categories")
+        .then(responce => setCategories(responce.data));
+      axios.get("http://localhost:8080/api/votes")
+        .then(responce => setVotes(responce.data));
+    }
+    catch (err) {
+      console.error('Помилка завантаження:', err);
     }
 
     const filteredEvents = events.filter((event) => {
@@ -50,36 +52,38 @@ const StatisticsPage = () => {
 
     filteredEvents.forEach((event) => {
 
-      const month = new Date(event.date).getMonth(); // месяц (0-11)
+      const month = new Date(event.date).getMonth(); // (0-11)
       monthlyStats[month].totalEvents += 1;
       monthlyStats[month].attendeesYes += votes.filter(vote => vote.vote == true).length || 0;
       monthlyStats[month].attendeesNo += votes.filter(vote => vote.vote == false).length || 0;
 
-      setYears(events.map((e) => new Date(e.date).getFullYear()))
+      const rawYears = events.map((e) => new Date(e.date).getFullYear());
+
+      setYears(rawYears.filter((value, index, array) => {
+        return array.indexOf(value) === index;
+      }))
     });
 
     setStatistics(monthlyStats);
   }, [events, filteredCategory, currentYear]);
-
-  // setFilteredCategory("");
 
 
   return (
     <>
       <Header />
       <div className="statistics-page">
-        <h1>Статистика событий</h1>
+        <h1>Статистика подій</h1>
 
-        {/* Фильтр по категориям */}
+        {/* Фільтрація по категоріям */}
         <div className="filter-container">
-          <label htmlFor="categoryFilter">Выберите категорию:</label>
+          <label htmlFor="categoryFilter">Оберіть категорію:</label>
           <select
             id="categoryFilter"
             value={filteredCategory}
             onChange={(e) => setFilteredCategory(e.target.value)}
           >
             <option value="">
-              Выберите категорию
+              Оберіть категорію
             </option>
             {categories.map((category, index) => (
               <option key={index} value={category.name}>
@@ -87,14 +91,14 @@ const StatisticsPage = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="yearFilter">Выберите год:</label>
+          <label htmlFor="yearFilter">Оберіть рік:</label>
           <select
             id="yearFilter"
             value={currentYear}
             onChange={(e) => setCurYear(e.target.value)}
           >
             <option value="">
-              Выберите год
+              Оберіть рік
             </option>
             {years.map((year, index) => (
               <option key={index} value={year}>

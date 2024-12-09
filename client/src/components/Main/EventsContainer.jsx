@@ -16,7 +16,7 @@ const EventsContainer = ({ events, page, last, setPage }) => {
 
   return (
     <div className="events-container">
-      <h1>События</h1>
+      <h1>Події</h1>
       <div className="events-list">
         {events.map((event) => (
           <EventCard data={event} />
@@ -26,7 +26,7 @@ const EventsContainer = ({ events, page, last, setPage }) => {
         <button
           className="nav-button"
           onClick={handlePrevious}
-          disabled={page === 0}
+          disabled={page === 1}
         >
           ← Назад
         </button>
@@ -36,7 +36,7 @@ const EventsContainer = ({ events, page, last, setPage }) => {
           onClick={handleNext}
           disabled={page === last}
         >
-          Вперед →
+          Уперед →
         </button>
       </div>
     </div>

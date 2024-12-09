@@ -4,47 +4,42 @@ import axios from "axios";
 import "@/styles/Header.css";
 
 const Header = ({ setFilter }) => {
-  const [nameInput, setNameInput] = useState(""); // Состояние для текста поиска
-  const [categoryInput, setCategoryInput] = useState(""); // Состояние для выбранного значения в списке
+  const [nameInput, setNameInput] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     axios.get("http://localhost:8080/api/categories")
-        .then(responce => setCategories(responce.data));
+      .then(responce => setCategories(responce.data));
   }, [])
 
-  // Обработчик отправки поиска
+
   const handleSearch = () => {
-    console.log("Поиск:", nameInput, "Категория:", categoryInput);
-    // alert(`Поиск: "${searchQuery}", Категория: "${selectedOption}"`);
-    const filter = {
-      name: nameInput != "" ? nameInput : null,
-      category: categoryInput != "" ? categoryInput : null,
-    }
-    if(setFilter == null){
-      navigate("/", {state:filter});
-      console.log("navigate to main")
+    const filter = {}
+    if(nameInput) filter.name = nameInput;
+    if(categoryInput) filter.category = categoryInput;
+    if (setFilter == null) {
+      navigate("/", { state: filter });
     }
     else {
       setFilter(filter);
-      console.log("setfilter")
     }
   };
 
   return (
     <header className="header">
       <Link to="/" className="button">Головна</Link>
-    <Link to="/calendar" className="button">
+      <Link to="/calendar" className="button">
         Календар
-    </Link>
-    <Link to="/statistics" className="button">
+      </Link>
+      <Link to="/statistics" className="button">
         Статистика
-    </Link>
+      </Link>
       <div className="search-container">
         <input
           type="search"
-          placeholder="Фамилия"
+          placeholder="Ім'я"
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
           className="search-input"
@@ -55,7 +50,7 @@ const Header = ({ setFilter }) => {
           className="dropdown"
         >
           <option value="">
-            Выберите категорию
+            Оберіть категорію
           </option>
           {categories.map((option, index) => (
             <option key={index} value={option.name}>
@@ -64,7 +59,7 @@ const Header = ({ setFilter }) => {
           ))}
         </select>
         <button onClick={handleSearch} className="search-button">
-          Поиск
+          Пошук
         </button>
       </div>
     </header>

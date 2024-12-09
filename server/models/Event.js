@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Event = mongoose.model("Event", mongoose.Schema({
-  //id INT AUTO_INCREMENT PRIMARY KEY,
   name: { type: String, required: true },
   describe: String,
   date: { type: Date, required: true },

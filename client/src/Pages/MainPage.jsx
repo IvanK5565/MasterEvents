@@ -11,16 +11,18 @@ function MainPage() {
     const [filter, setFilter] = useState({});
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(1);
-    
-  const location = useLocation();
-  if(location.state){
-    console.log("  ===  = = = == " + location.state);
-    setFilter(location.state);
-  }
+    const location = useLocation();
 
     useEffect(() => {
-        console.log("useEffect main " + filter.category)
+        if(page > lastPage) setPage(lastPage);
+    },[lastPage])
+    
+    useEffect(() => {
         try {
+            if(location.state){
+                setFilter(location.state);
+                location.state = null;
+              }
             axios.get("http://localhost:8080/api/events", {params:{filter:filter, page:page}})
                 .then(responce => {
                     const {total, page, pages,limit,events} = responce.data;
@@ -30,10 +32,9 @@ function MainPage() {
                 });
         }
         catch (err) {
-            console.error('Ошибка при загрузке данных:', err);
+            console.error('Помилка завантаження:', err);
         }
     }, [filter, page]);
-    // console.log(events);
 
     return <>
         <Header setFilter={setFilter} />

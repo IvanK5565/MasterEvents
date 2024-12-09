@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
-import "@/styles/EventCard.css"; // Обновленный путь к стилям
+import "@/styles/EventCard.css";
 
 const Modal = ({ setShowModal, confirmResponse }) => {
-    const [email, setEmail] = useState(""); // Состояние для email
-    const [name, setName] = useState(""); // Состояние для имени
-    const [isNewEmail, setIsNewEmail] = useState(false); // Состояние для проверки email
+    const [email, setEmail] = useState(""); 
+    const [name, setName] = useState("");
+    const [isNewEmail, setIsNewEmail] = useState(false); 
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -36,12 +36,11 @@ const Modal = ({ setShowModal, confirmResponse }) => {
             }).then((res) => {
                 if (res) {
                     handleCloseModal();
-                    console.log("---------------" + res.data)
                     confirmResponse(res.data);
                 }
             })
             .catch((err) => {
-                console.error(err);
+                console.error("Помилка запису:" + err);
             })
         }
         else {
@@ -61,7 +60,7 @@ const Modal = ({ setShowModal, confirmResponse }) => {
                 })
                 .catch((err) => {
                     setIsNewEmail(true);
-                    console.error(err);
+                    console.error("Помилка запису:" + err);
                 })
         }
     };
@@ -69,10 +68,10 @@ const Modal = ({ setShowModal, confirmResponse }) => {
     return (
         <div className="modal">
             <div className="modal-content">
-                <h3>Введите ваши данные</h3>
+                <h3>Внесіть ваші дані</h3>
                 <input
                     type="email"
-                    placeholder="Введите email"
+                    placeholder="Введіть email"
                     value={email}
                     onChange={handleEmailChange}
                     className="modal-input"
@@ -80,7 +79,7 @@ const Modal = ({ setShowModal, confirmResponse }) => {
                 {isNewEmail && (
                     <input
                         type="text"
-                        placeholder="Введите имя"
+                        placeholder="Введіть ім'я"
                         value={name}
                         onChange={handleNameChange}
                         className="modal-input"
@@ -90,12 +89,11 @@ const Modal = ({ setShowModal, confirmResponse }) => {
                     <button
                         className="button submit-button"
                         onClick={handleSubmit}
-                    //disabled={!email || (!isNewEmail && !name)}
                     >
-                        Подтвердить
+                        Підтвердити
                     </button>
                     <button className="button cancel-button" onClick={handleCloseModal}>
-                        Отмена
+                        Повернутись
                     </button>
                 </div>
             </div>

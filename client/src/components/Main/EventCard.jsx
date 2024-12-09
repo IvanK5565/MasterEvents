@@ -10,6 +10,7 @@ const EventCard = ({ data }) => {
   const [vote_count, setVoteCount] = useState(0);
   const [tempResponce, setTempResp] = useState(null);
 
+  const category = data.category;
   const id = data._id;
   const eventName = data.name;
   const eventDate = data.date;
@@ -21,9 +22,9 @@ const EventCard = ({ data }) => {
   const confirmResponce = (user) => {
     setResponse(tempResponce);
     axios.post("http://localhost:8080/api/votes", {
-      _vote: tempResponce,
-      _event: data,
-      _user: user,
+      vote: tempResponce,
+      event: data,
+      user: user,
     })
   }
 
@@ -37,7 +38,6 @@ const EventCard = ({ data }) => {
     })
       .then((res) => {
         setVoteCount(res.data);
-        console.log(res.data);
       });
   }, [])
 
@@ -45,21 +45,21 @@ const EventCard = ({ data }) => {
     <div className="event-card">
       <h3 className="event-name">{eventName}</h3>
       <p className="event-date">Дата: {eventDate}</p>
-      <p className="event-id">ID события: {id}</p>
-      <p className="event-id">Количество записавшихся: {vote_count}</p>
+      <p className="event-id">Категорія: {category}</p>
+      <p className="event-id">Записались: {vote_count}</p>
       <Link className="button" to={`/event/${id}`} state={data}>Детальніше</Link>
 
       {response ? (
         <div>
-          <p>Ваш выбор: {response}</p>
+          <p>Ваш вибір: {response}</p>
         </div>
       ) : (
         <div>
           <button className="button vote-button" onClick={handleOpenModal} value={true}>
-            Пойду
+            Піду
           </button>
           <button className="button vote-button" onClick={handleOpenModal} value={false}>
-            Не пойду
+            Не піду
           </button>
         </div>
       )}

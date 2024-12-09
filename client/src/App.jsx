@@ -4,7 +4,6 @@ import MainPage from "./Pages/MainPage";
 import CalendarPage from "./Pages/CalendarPage";
 import StatisticsPage from "./Pages/StatisticsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
-import AdminPage from './Pages/AdminPage';
 
 const events = [
     {
@@ -36,7 +35,6 @@ const App = () => {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/statistics" element={<StatisticsPage events={events} />} />
         <Route path="/event/:id" element={<EventDetailsPage />} />
-        <Route path="/admin" element={<AdminPage />} /> {/* Скрытый маршрут */}
       </Routes>
     </Router>
   );

@@ -13,15 +13,14 @@ const EventCalendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        await axios.get("http://localhost:8080/api/events")
+        await axios.get("http://localhost:8080/api/events/all")
           .then((responce) => {
-            const data = responce.data.data;
-            console.log(data);
+            const data = responce.data;
             setEvents(data);
           });
       }
       catch (err) {
-        console.error('Ошибка при загрузке событий:', err);
+        console.error('Помилка завантадення даних:', err);
       }
     }
     fetchEvents();
@@ -54,7 +53,7 @@ const EventCalendar = () => {
         <button onClick={() => handleMonthChange(1)}>&gt;</button>
       </div>
       <div className="calendar-grid">
-        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"].map((day, index) => (
+        {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"].map((day, index) => (
           <div key={index} className="calendar-day-header">
             {day}
           </div>
@@ -65,7 +64,7 @@ const EventCalendar = () => {
         {Array.from({ length: daysInMonth }).map((_, day) => {
           const dayNumber = day + 1;
           const dayEvents = getEventsForDay(dayNumber);
-          const brightness = dayEvents.length * 20; // Чем больше событий, тем ярче.
+          const brightness = dayEvents.length * 20; // Яскравість
 
           return (
             <div

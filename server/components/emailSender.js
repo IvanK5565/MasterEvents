@@ -8,8 +8,8 @@ const sendEmail = async (to, subject, text) => {
       port: 587,
       secure: false,
       auth: {
-        user: login, // Ваш email
-        pass: pass, // Ваш пароль (или приложение-ключ)
+        user: login,
+        pass: pass,
       },
     });
 

@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
   catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Что-то пошло не так" });
+    res.status(500).json({ error: "Щось пішло не так" });
   }
 });
 
@@ -24,16 +24,13 @@ router.post('/', async (req, res) => {
     name: name,
     email: email
   });
-  //console.log("..."+req.body.params.name);
-  // сохраняем в бд
   try {
     await newUser.save();
-    console.log("-----------" + newUser)
     res.status(200).json(newUser);
   }
   catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Что-то пошло не так" });
+    res.status(500).json({ error: "Щось пішло не так" });
   }
 });
 

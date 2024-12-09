@@ -19,9 +19,9 @@ const EventDetailsPage = () => {
   if (!event) {
     return (
       <div className="event-details-page">
-        <h1>Событие не найдено</h1>
+        <h1>Подію не знайдено</h1>
         <Link to="/" className="back-link">
-          Вернуться на главную страницу
+          На головну
         </Link>
       </div>
     );
@@ -44,7 +44,7 @@ const EventDetailsPage = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate("/"); // Перенаправление на главную, если истории нет
+      navigate("/"); // на головну
     }
   };
 
@@ -67,25 +67,25 @@ const EventDetailsPage = () => {
     <div className="event-details-page">
       <Header/>
       <h1>{event.name}</h1>
-      <p><strong>Описание:</strong> {event.describe}</p>
+      <p><strong>Опис:</strong> {event.describe}</p>
       <p><strong>Дата:</strong> {new Date(event.date).toLocaleDateString()}</p>
-      <p><strong>Категория:</strong> {event.category}</p>
+      <p><strong>Категорія:</strong> {event.category}</p>
 
       <div className="attendees">
-        <p><strong>Количество гостей:</strong> {vote_count}</p>
+        <p><strong>Кількість гостей:</strong> {vote_count}</p>
       </div>
 
       {response ? (
         <div>
-          <p>Ваш выбор: {response}</p>
+          <p>Ваш вибір: {response}</p>
         </div>
       ) : (
         <div>
           <button className="button vote-button" onClick={handleOpenModal} value={true}>
-            Пойду
+            Піду
           </button>
           <button className="button vote-button" onClick={handleOpenModal} value={false}>
-            Не пойду
+            Не піду
           </button>
         </div>
       )}
@@ -94,7 +94,7 @@ const EventDetailsPage = () => {
 
       <div className="buttons">
         <button onClick={goBack} className="back-link">
-          Вернуться на главную страницу
+          Повернутись на головну
         </button>
       </div>
       <Footer/>
