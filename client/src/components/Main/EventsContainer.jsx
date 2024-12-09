@@ -3,13 +3,20 @@ import EventCard from "./EventCard";
 import "@/styles/EventsContainer.css";
 
 const EventsContainer = ({ events, page, last, setPage }) => {
-
+    const ScrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth', // плавная прокрутка
+      });
+    };
   const handleNext = () => {
       setPage(page + 1);
+      ScrollToTop();
   };
 
   const handlePrevious = () => {
       setPage(page - 1);
+      ScrollToTop();
   };
 
   

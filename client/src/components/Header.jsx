@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "@/styles/Header.css";
+import "@/styles/Universal.css";
 
 const Header = ({ setFilter }) => {
   const [nameInput, setNameInput] = useState("");
@@ -29,11 +30,11 @@ const Header = ({ setFilter }) => {
 
   return (
     <header className="header">
-      <Link to="/" className="button">Головна</Link>
-      <Link to="/calendar" className="button">
+      <Link to="/" className="white_button">Головна</Link>
+      <Link to="/calendar" className="white_button">
         Календар
       </Link>
-      <Link to="/statistics" className="button">
+      <Link to="/statistics" className="white_button">
         Статистика
       </Link>
       <div className="search-container">
@@ -58,7 +59,7 @@ const Header = ({ setFilter }) => {
             </option>
           ))}
         </select>
-        <button onClick={handleSearch} className="search-button">
+        <button onClick={handleSearch} className="white_button">
           Пошук
         </button>
       </div>

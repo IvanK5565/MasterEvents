@@ -19,8 +19,8 @@ router.get('/', async (req, res) => {
             describe: "Describe for " + i,
             date: new Date(
                 rand(2) + 2024,//year
-                rand(6) + 12,//month
-                rand(31),//day
+                rand(12),//month
+                rand(30),//day
                 rand(12) + 10,//hours
                 rand(2) * 30,//min
             ),

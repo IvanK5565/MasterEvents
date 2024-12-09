@@ -54,8 +54,10 @@ const StatisticsPage = () => {
 
       const month = new Date(event.date).getMonth(); // (0-11)
       monthlyStats[month].totalEvents += 1;
-      monthlyStats[month].attendeesYes += votes.filter(vote => vote.vote == true).length || 0;
-      monthlyStats[month].attendeesNo += votes.filter(vote => vote.vote == false).length || 0;
+      monthlyStats[month].attendeesYes += votes.filter(vote => vote.vote == true && vote.event_id == event._id).length || 0;
+      monthlyStats[month].attendeesNo += votes.filter(vote => vote.vote == false && vote.event_id == event._id).length || 0;
+
+      console.log(votes);
 
       const rawYears = events.map((e) => new Date(e.date).getFullYear());
 

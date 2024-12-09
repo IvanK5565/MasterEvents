@@ -1,0 +1,41 @@
+.white_button{
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #007004;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+a{
+    text-decoration: none;
+}
+body{
+    margin: 0;
+}
+
+.green_button{
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007004;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+.vote-button{
+    width: 100px;
+}
+
+.green_button:hover{
+    color: #007004;
+    background-color: #ffffff;
+}
+.white_button:hover{
+    color: #ffffff;
+    background-color: #007004;
+}

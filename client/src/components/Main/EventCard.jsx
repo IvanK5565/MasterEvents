@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import "@/styles/EventCard.css"; // Обновленный путь к стилям
+import "@/styles/Universal.css"; // Обновленный путь к стилям
 import { Link } from 'react-router-dom';
 import Modal from "./Modal";
 
@@ -47,7 +48,6 @@ const EventCard = ({ data }) => {
       <p className="event-date">Дата: {eventDate}</p>
       <p className="event-id">Категорія: {category}</p>
       <p className="event-id">Записались: {vote_count}</p>
-      <Link className="button" to={`/event/${id}`} state={data}>Детальніше</Link>
 
       {response ? (
         <div>
@@ -55,14 +55,15 @@ const EventCard = ({ data }) => {
         </div>
       ) : (
         <div>
-          <button className="button vote-button" onClick={handleOpenModal} value={true}>
+          <button className="green_button vote-button" onClick={handleOpenModal} value={true}>
             Піду
           </button>
-          <button className="button vote-button" onClick={handleOpenModal} value={false}>
+          <button className="green_button vote-button" onClick={handleOpenModal} value={false}>
             Не піду
           </button>
         </div>
       )}
+      <Link margin="5px" className="green_button vote-button" to={`/event/${id}`} state={data}>Детальніше</Link>
 
       {showModal && <Modal setShowModal={setShowModal} confirmResponse={confirmResponce} />}
     </div>
