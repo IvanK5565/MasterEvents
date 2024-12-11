@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "@/styles/EventDetailsPage.css";
+import "@/styles/Universal.css";
 import Modal from "@/components/Main/Modal";
 import Header from "@/components/Header.jsx";
 import Footer from "@/components/Footer.jsx";
@@ -65,7 +66,7 @@ const EventDetailsPage = () => {
 
   return (
     <div className="event-details-page">
-      <Header/>
+      <Header />
       <h1>{event.name}</h1>
       <p><strong>Опис:</strong> {event.describe}</p>
       <p><strong>Дата:</strong> {new Date(event.date).toLocaleDateString()}</p>
@@ -81,23 +82,23 @@ const EventDetailsPage = () => {
         </div>
       ) : (
         <div>
-          <button className="button vote-button" onClick={handleOpenModal} value={true}>
+          <button className="green_button vote-button" onClick={handleOpenModal} value={true}>
             Піду
           </button>
-          <button className="button vote-button" onClick={handleOpenModal} value={false}>
+          <button className="green_button vote-button" onClick={handleOpenModal} value={false}>
             Не піду
           </button>
         </div>
       )}
-      
-      {showModal && <Modal setShowModal={setShowModal} confirmResponse={confirmResponce} />}
-
-      <div className="buttons">
-        <button onClick={goBack} className="back-link">
+      <div>
+        <button className="green_button" onClick={goBack}>
           Повернутись на головну
         </button>
       </div>
-      <Footer/>
+
+      {showModal && <Modal setShowModal={setShowModal} confirmResponse={confirmResponce} />}
+
+      <Footer />
     </div>
   );
 };
