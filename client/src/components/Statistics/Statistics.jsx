@@ -15,7 +15,7 @@ import "@/styles/StatisticsPage.css";
 
 const Statistics = ({ statistics, months, year }) => {
     return (<>
-        {/* Диаграмма: Количество событий в каждом месяце */}
+        {/* Діаграма: Кількість подій у кожному місяці */}
         <div className="chart-container">
             <h2>Кількість подій за місяцями {year}</h2>
             <ResponsiveContainer width="100%" height={300}>
@@ -30,7 +30,7 @@ const Statistics = ({ statistics, months, year }) => {
             </ResponsiveContainer>
         </div>
 
-        {/* Диаграмма: Количество посетителей (да/нет) по месяцам */}
+        {/* Діаграма: Кількість відвідувачів (так/ні) по месяцям */}
         <div className="chart-container">
             <h2>Гості {year}</h2>
             <ResponsiveContainer width="100%" height={300}>
