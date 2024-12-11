@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Statistics from "../components/Statistics/Statistics";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Statistics from "@/components/Statistics/Statistics";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import axios from "axios";
 import "@/styles/StatisticsPage.css";
 
