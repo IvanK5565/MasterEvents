@@ -20,7 +20,7 @@ const EventCalendar = () => {
           });
       }
       catch (err) {
-        console.error('Помилка завантадення даних:', err);
+        console.error('Помилка завантаження даних:', err);
       }
     }
     fetchEvents();
