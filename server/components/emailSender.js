@@ -21,9 +21,9 @@ const sendEmail = async (to, subject, text) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email отправлен:', info.response);
+    console.log('Email відправлено:', info.response);
   } catch (error) {
-    console.error('Ошибка при отправке email:', error.message);
+    console.error('Помилка під час відправки email:', error.message);
   }
 };
 
