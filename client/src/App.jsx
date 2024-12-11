@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import CalendarPage from "./pages/CalendarPage";
-import StatisticsPage from "./pages/StatisticsPage";
-import EventDetailsPage from "./pages/EventDetailsPage";
+import MainPage from "./Pages/MainPage";
+import CalendarPage from "./Pages/CalendarPage";
+import StatisticsPage from "./Pages/StatisticsPage";
+import EventDetailsPage from "./Pages/EventDetailsPage";
 
 const events = [
     {

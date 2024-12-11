@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { useState, useEffect } from "react";
-import "@/styles/EventCalendar.css"; // Импорт стилей из "../styles/"
+import "@/styles/EventCalendar.css";
 
 const EventCalendar = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());

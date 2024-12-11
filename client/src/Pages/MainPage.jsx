@@ -25,7 +25,6 @@ function MainPage() {
     
     useEffect(() => {
         try {
-            
             axios.get("http://localhost:8080/api/events", {params:{filter:filter, page:page}})
                 .then(responce => {
                     const {total, page, pages,limit,events} = responce.data;

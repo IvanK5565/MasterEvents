@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 });
 
 const mongoose = require("mongoose");
-const Category = require("./models/Category");
 const mongoString = "mongodb://localhost:27017/"
 
 app.get('/api', async (req, res) => {
@@ -49,10 +48,4 @@ async function main() {
 }
 
 main();
-// прослушиваем прерывание работы программы (ctrl-c)
-process.on("SIGINT", async () => {
 
-  await mongoose.disconnect();
-  console.log("Завершення роботи");
-  process.exit();
-});
