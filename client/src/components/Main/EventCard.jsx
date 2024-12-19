@@ -14,7 +14,7 @@ const EventCard = ({ data }) => {
   const category = data.category;
   const id = data._id;
   const eventName = data.name;
-  const eventDate = data.date;
+  const eventDate = new Date(data.date).toLocaleString();
 
   const handleOpenModal = (v) => {
     setShowModal(true);

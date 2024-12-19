@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import "@/styles/EventCalendar.css";
 
 const EventCalendar = () => {
@@ -76,10 +77,13 @@ const EventCalendar = () => {
             >
               <div className="day-number">{dayNumber}</div>
               {dayEvents.map((event, index) => (
-                <div key={index} className="event-title">
-                  <strong>{event.name}</strong>
-                  <p>{event.category}</p>
-                </div>
+
+
+                <Link  key={index} className="event-title" to={`/event/${event._id}`} state={event}>
+                    <strong>{event.name}</strong>
+                    <p>{event.category}</p>
+                </Link>
+
               ))}
             </div>
           );
