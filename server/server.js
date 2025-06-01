@@ -8,10 +8,10 @@ const seeds = require('./routes/seeds')
 const Event = require('./models/Event');
 
 const cors = require('cors');
-const corsOptoins = {
+const corsOptions = {
   origin: ["http://localhost:5173"]
 };
-app.use(cors(corsOptoins));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 const mongoose = require("mongoose");
-const mongoString = "mongodb://localhost:27017/"
+const mongoString = process.env.MONGO_URL || "mongodb://localhost:27017/mydb";
 
 app.get('/api', async (req, res) => {
   res.json({ fruits: ["apple", "orange", "banana"] });
@@ -40,7 +40,7 @@ async function main() {
 
   try {
     await mongoose.connect(mongoString);
-    app.listen(8080, () => console.log(`Listening on http://localhost:8080/`));
+    app.listen(8080, '0.0.0.0', () => console.log(`Listening on http://localhost:8080/`));
   }
   catch (err) {
     return console.log(err);
