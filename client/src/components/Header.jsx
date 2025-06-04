@@ -7,14 +7,20 @@ import "@/styles/Universal.css";
 const Header = ({ setFilter }) => {
   const [nameInput, setNameInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/categories")
       .then(responce => setCategories(responce.data));
-  }, [])
 
+    // Check for user info in localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleSearch = () => {
     const filter = {}
@@ -28,15 +34,33 @@ const Header = ({ setFilter }) => {
     }
   };
 
+  const handleLogin = () => {
+    navigate("/admin/login");
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:8080/api/admin/logout", {}, {
+        withCredentials: true
+      });
+      localStorage.removeItem('user');
+      setUser(null);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <header className="header">
-      <Link to="/" className="white_button">Головна</Link>
-      <Link to="/calendar" className="white_button">
-        Календар
-      </Link>
-      <Link to="/statistics" className="white_button">
-        Статистика
-      </Link>
+      <div className="nav-buttons">
+        <Link to="/" className="white_button">Головна</Link>
+        <Link to="/calendar" className="white_button">
+          Календар
+        </Link>
+        <Link to="/statistics" className="white_button">
+          Статистика
+        </Link>
+      </div>
       <div className="search-container">
         <input
           type="search"
@@ -62,6 +86,20 @@ const Header = ({ setFilter }) => {
         <button onClick={handleSearch} className="white_button">
           Пошук
         </button>
+      </div>
+      <div className="auth-section">
+        {user ? (
+          <div className="user-info">
+            <span className="user-email">{user.email}</span>
+            <button onClick={handleLogout} className="white_button">
+              Вийти
+            </button>
+          </div>
+        ) : (
+          <button onClick={handleLogin} className="white_button login-button">
+            Вхід
+          </button>
+        )}
       </div>
     </header>
   );

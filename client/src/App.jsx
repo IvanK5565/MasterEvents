@@ -4,6 +4,7 @@ import MainPage from "./Pages/MainPage";
 import CalendarPage from "./Pages/CalendarPage";
 import StatisticsPage from "./Pages/StatisticsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
+import AdminLogin from "./Pages/AdminLogin";
 
 const events = [
     {
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/statistics" element={<StatisticsPage events={events} />} />
         <Route path="/event/:id" element={<EventDetailsPage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
     </Router>
   );

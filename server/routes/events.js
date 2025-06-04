@@ -11,9 +11,11 @@ router.get('/', async (req, res) => {
         if (filter.name) {
             filter.name = { $regex: filter.name, $options: 'i' };
             const user = await User.findOne({ name: filter.name });
-            const votes = await Vote.find({ user_id: user._id, vote: true }, 'event_id');
-            filter._id = { $in: votes.map(v => v.event_id) };
-            delete filter.name;
+            if (user !== null) {
+                const votes = await Vote.find({ user_id: user._id, vote: true }, 'event_id');
+                filter._id = { $in: votes.map(v => v.event_id) };
+                delete filter.name;
+            }
         }
         const skip = (parseInt(page) - 1) * 10;
         const events = await Event.find(filter).skip(skip).limit(10);

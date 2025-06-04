@@ -1,19 +1,24 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const userRoute = require('./routes/users')
 const eventRoute = require('./routes/events')
 const voteRoute = require('./routes/votes')
 const categoriesRoute = require('./routes/categories')
+const adminRoute = require('./routes/admin')
 const seeds = require('./routes/seeds')
+const cookieParser = require('cookie-parser');
 const Event = require('./models/Event');
 
 const cors = require('cors');
 const corsOptions = {
-  origin: ["http://localhost:5173"]
+  origin: "http://localhost:5173",
+  credentials: true
 };
 app.use(cors(corsOptions));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use((req, res, next) => {
   console.log('Метод:', req.method);
   console.log('Тіло:', req.body);
@@ -33,6 +38,7 @@ app.use("/api/categories", categoriesRoute);
 app.use("/api/users", userRoute);
 app.use("/api/events", eventRoute);
 app.use("/api/votes", voteRoute);
+app.use("/api/admin", adminRoute);
 
 
 
