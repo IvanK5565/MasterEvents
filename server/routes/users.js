@@ -65,19 +65,43 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create new user
-router.post('/', async (req, res) => {
-  if (!req.body) return res.sendStatus(400);
-  const { name, email } = req.body;
-  const newUser = new User({
-    name: name,
-    email: email
-  });
+// Create form endpoint (admin only)
+router.get('/create', isAdmin, (req, res) => {
+  res.status(200).json({ message: 'Create user form accessed' });
+});
+
+// Store new user (admin only)
+router.post('/store', isAdmin, async (req, res) => {
   try {
+    const { name, email, password } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Name, email and password are required' });
+    }
+
+    // Check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
+    // Create new user
+    const newUser = new User({
+      name,
+      email,
+      password,
+      role: 'admin' // All users are admins as per the schema
+    });
+
     await newUser.save();
-    res.status(200).json(newUser);
-  }
-  catch (err) {
+    
+    // Return user without password
+    const userWithoutPassword = newUser.toObject();
+    delete userWithoutPassword.password;
+    
+    res.status(201).json(userWithoutPassword);
+  } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
   }

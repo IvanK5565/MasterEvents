@@ -6,6 +6,7 @@ import StatisticsPage from "./Pages/StatisticsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminUsersPage from "./Pages/AdminUsersPage";
+import AdminUserCreatePage from "./Pages/AdminUserCreatePage";
 import ProtectedLoginRoute from "./components/ProtectedLoginRoute";
 
 const events = [
@@ -47,6 +48,7 @@ const App = () => {
           } 
         />
         <Route path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/users/create" element={<AdminUserCreatePage />} />
       </Routes>
     </Router>
   );

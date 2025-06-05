@@ -24,6 +24,7 @@ const UsersTable = ({ users, page, lastPage, setPage }) => {
         <table className="users-table">
           <thead>
             <tr>
+              <th>Name</th>
               <th>Email</th>
               <th>Role</th>
               <th>Created At</th>
@@ -32,6 +33,7 @@ const UsersTable = ({ users, page, lastPage, setPage }) => {
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
+                <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>

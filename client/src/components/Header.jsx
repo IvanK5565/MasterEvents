@@ -45,6 +45,7 @@ const Header = ({ setFilter }) => {
       });
       localStorage.removeItem('user');
       setUser(null);
+      navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
