@@ -5,6 +5,8 @@ import CalendarPage from "./Pages/CalendarPage";
 import StatisticsPage from "./Pages/StatisticsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
 import AdminLogin from "./Pages/AdminLogin";
+import AdminUsersPage from "./Pages/AdminUsersPage";
+import ProtectedLoginRoute from "./components/ProtectedLoginRoute";
 
 const events = [
     {
@@ -36,7 +38,15 @@ const App = () => {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/statistics" element={<StatisticsPage events={events} />} />
         <Route path="/event/:id" element={<EventDetailsPage />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route 
+          path="/admin/login" 
+          element={
+            <ProtectedLoginRoute>
+              <AdminLogin />
+            </ProtectedLoginRoute>
+          } 
+        />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
       </Routes>
     </Router>
   );

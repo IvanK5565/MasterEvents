@@ -90,7 +90,9 @@ const Header = ({ setFilter }) => {
       <div className="auth-section">
         {user ? (
           <div className="user-info">
-            <span className="user-email">{user.email}</span>
+            <Link to="/admin/users" className="user-email">
+              {user.email}
+            </Link>
             <button onClick={handleLogout} className="white_button">
               Вийти
             </button>

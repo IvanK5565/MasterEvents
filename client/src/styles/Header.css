@@ -79,5 +79,12 @@
 .user-email {
     color: white;
     font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.user-email:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
   
