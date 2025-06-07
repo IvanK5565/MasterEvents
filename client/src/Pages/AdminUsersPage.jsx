@@ -5,9 +5,11 @@ import Header from '@/components/Header';
 import UsersTable from '@/components/Admin/UsersTable';
 import AdminTabs from '@/components/Admin/AdminTabs';
 import SearchBar from '@/components/Admin/SearchBar';
+import { useAuthCheck } from '@/hooks/useAuthCheck';
 import '@/styles/AdminUsers.css';
 
 const AdminUsersPage = () => {
+  useAuthCheck();
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);

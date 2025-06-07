@@ -77,7 +77,7 @@ router.get('/create', isAdmin, (req, res) => {
 // Store new user (admin only)
 router.post('/store', isAdmin, async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Validate required fields
     if (!name || !email) {
@@ -95,7 +95,7 @@ router.post('/store', isAdmin, async (req, res) => {
       name,
       email,
       password: password || null,
-      role: 'admin' // All users are admins as per the schema
+      role: role || 'guest' // Default to guest if role is not specified
     });
 
     await newUser.save();

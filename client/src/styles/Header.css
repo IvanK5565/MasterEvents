@@ -11,39 +11,27 @@
 
 .nav-buttons {
     display: flex;
-    gap: 8px;
-    align-items: center;
+    gap: 1rem;
 }
 
 .search-container {
     display: flex;
+    gap: 1rem;
     align-items: center;
-    gap: 8px;
-    flex-grow: 1;
-    justify-content: center;
-    max-width: 1000px;
 }
 
 .search-input {
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    outline: none;
-    width: 200px;
-    transition: border-color 0.3s ease;
-}
-
-.search-input:focus {
-    border-color: #007bff;
+    font-size: 1rem;
 }
 
 .dropdown {
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: #fff;
+    font-size: 1rem;
 }
 
 .button {
@@ -73,18 +61,27 @@
 .user-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 1rem;
 }
 
 .user-email {
     color: white;
-    font-weight: 500;
     text-decoration: none;
-    transition: opacity 0.2s;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
 .user-email:hover {
-    opacity: 0.8;
-    text-decoration: underline;
+    background-color: #444;
+}
+
+.guest-email {
+    color: white;
+    cursor: default;
+}
+
+.guest-email:hover {
+    background-color: transparent;
 }
   
