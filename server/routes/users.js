@@ -76,8 +76,8 @@ router.post('/store', isAdmin, async (req, res) => {
     const { name, email, password } = req.body;
 
     // Validate required fields
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Name, email and password are required' });
+    if (!name || !email) {
+      return res.status(400).json({ message: 'Name and email are required' });
     }
 
     // Check if email already exists
@@ -90,7 +90,7 @@ router.post('/store', isAdmin, async (req, res) => {
     const newUser = new User({
       name,
       email,
-      password,
+      password: password || null,
       role: 'admin' // All users are admins as per the schema
     });
 

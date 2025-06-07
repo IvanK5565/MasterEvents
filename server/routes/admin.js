@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Event = require("../models/Event");
+const Vote = require("../models/Vote");
+const Category = require("../models/Category");
 
 // Login route
 router.post("/login", async (req, res) => {
@@ -17,7 +20,7 @@ router.post("/login", async (req, res) => {
 
     // Find user
     const user = await User.findOne({ email });
-    if (!user) {
+    if (!user || !user.password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
@@ -55,32 +58,33 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out successfully" });
 });
 
-// Temporary route to create first admin (should be disabled in production)
-if (process.env.NODE_ENV !== "production") {
-  router.post("/setup-admin", async (req, res) => {
-    try {
-      const { email, password } = req.body;
 
-      // Check if admin already exists
-      const existingAdmin = await User.findOne({ role: "admin" });
-      if (existingAdmin) {
-        return res.status(400).json({ message: "Admin user already exists" });
-      }
-
-      // Create new admin user
-      const user = new User({
-        email,
-        password,
-        role: "admin",
-      });
-
-      await user.save();
-      res.status(201).json({ message: "Admin user created successfully" });
-    } catch (error) {
-      console.error("Setup admin error:", error);
-      res.status(500).json({ message: "Internal server error" });
+// Clear database route (admin only)
+router.post("/clear-db", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: 'Authentication required' });
     }
-  });
-}
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded.role !== 'admin') {
+      return res.status(403).json({ message: 'Admin access required' });
+    }
+
+    // Clear all collections
+    await Promise.all([
+      Event.deleteMany({}),
+      User.deleteMany({}),
+      Vote.deleteMany({}),
+      Category.deleteMany({})
+    ]);
+
+    res.status(200).json({ message: 'Database cleared successfully' });
+  } catch (error) {
+    console.error('Clear database error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;
