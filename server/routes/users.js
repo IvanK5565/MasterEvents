@@ -25,15 +25,19 @@ const isAdmin = async (req, res, next) => {
 // Get all users with pagination (admin only)
 router.get('/all', isAdmin, async (req, res) => {
   try {
-    const { page = 1 } = req.query;
+    const { page = 1, search = '' } = req.query;
     const limit = 10;
     const skip = (parseInt(page) - 1) * limit;
 
-    const users = await User.find({}, '-password')
+    const searchQuery = search
+      ? { name: { $regex: search, $options: 'i' } }
+      : {};
+
+    const users = await User.find(searchQuery, '-password')
       .skip(skip)
       .limit(limit);
 
-    const total = await User.countDocuments();
+    const total = await User.countDocuments(searchQuery);
     const lastPage = Math.max(1, Math.ceil(total / limit));
 
     res.status(200).json({
