@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import "@/styles/EventCalendar.css";
 
+const shiftDays = (day) => day == 0 ? 6 : day;
+
 const EventCalendar = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [events, setEvents] = useState([]);
 
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const startDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+  const startDayOfWeek = shiftDays(new Date(currentYear, currentMonth, 1).getDay());
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -34,14 +36,11 @@ const EventCalendar = () => {
   };
 
   const getEventsForDay = (day) => {
-    return events.filter((event) => {
-      const eventDate = event.date;
-      return (
-        (new Date(eventDate)).getFullYear() === currentYear &&
-        (new Date(eventDate)).getMonth() === currentMonth &&
-        (new Date(eventDate)).getDate() === day
-      );
-    });
+    return events.filter(({date}) =>  (
+        (new Date(date)).getFullYear() === currentYear &&
+        (new Date(date)).getMonth() === currentMonth &&
+        (new Date(date)).getDate() === day
+      ));
   };
 
   return (

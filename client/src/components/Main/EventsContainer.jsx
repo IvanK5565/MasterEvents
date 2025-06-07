@@ -25,8 +25,8 @@ const EventsContainer = ({ events, page, last, setPage }) => {
     <div className="events-container">
       <h1>Події</h1>
       <div className="events-list">
-        {events.map((event) => (
-          <EventCard data={event} />
+        {events.map((event, i) => (
+          <EventCard key={i} data={event} />
         ))}
       </div>
       <div className="navigation">
