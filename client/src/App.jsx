@@ -6,7 +6,9 @@ import StatisticsPage from "./Pages/StatisticsPage";
 import EventDetailsPage from "./Pages/EventDetailsPage";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminUsersPage from "./Pages/AdminUsersPage";
+import AdminEventsPage from "./Pages/AdminEventsPage";
 import AdminUserCreatePage from "./Pages/AdminUserCreatePage";
+import AdminEventCreatePage from "./Pages/AdminEventCreatePage";
 import ProtectedLoginRoute from "./components/ProtectedLoginRoute";
 
 const events = [
@@ -48,7 +50,9 @@ const App = () => {
           } 
         />
         <Route path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/events" element={<AdminEventsPage />} />
         <Route path="/admin/users/create" element={<AdminUserCreatePage />} />
+        <Route path="/admin/events/create" element={<AdminEventCreatePage />} />
       </Routes>
     </Router>
   );

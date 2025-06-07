@@ -4,6 +4,58 @@ const Event = require('../models/Event');
 const Category = require('../models/Category');
 const User = require('../models/User');
 const Vote = require('../models/Vote');
+const jwt = require('jsonwebtoken');
+
+// Middleware to check if user is admin
+const isAdmin = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: 'Необхідна авторизація' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.userId);
+
+    if (!user || user.role !== 'admin') {
+      return res.status(403).json({ message: 'Доступ заборонено' });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Недійсний токен' });
+  }
+};
+
+// Admin route for getting all events with pagination
+router.get('/admin', isAdmin, async (req, res) => {
+  try {
+    const { page = 1 } = req.query;
+    const limit = 10;
+    const skip = (parseInt(page) - 1) * limit;
+
+    const events = await Event.find()
+      .sort({ date: 1 })
+      .skip(skip)
+      .limit(limit)
+      .populate('category');
+
+    const total = await Event.countDocuments();
+    const lastPage = Math.max(1, Math.ceil(total / limit));
+
+    res.status(200).json({
+      total,
+      page: parseInt(page),
+      pages: lastPage,
+      limit,
+      events
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Щось пішло не так' });
+  }
+});
 
 router.get('/', async (req, res) => {
     try {

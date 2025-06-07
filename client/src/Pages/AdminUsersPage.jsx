@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '@/components/Header';
 import UsersTable from '@/components/Admin/UsersTable';
+import AdminTabs from '@/components/Admin/AdminTabs';
 import '@/styles/AdminUsers.css';
 
 const AdminUsersPage = () => {
@@ -23,8 +24,7 @@ const AdminUsersPage = () => {
         setPage(currentPage);
         setLastPage(pages);
       } catch (error) {
-        console.error('Error fetching users:', error);
-        // If unauthorized, redirect to login
+        console.error('Помилка отримання користувачів:', error);
         if (error.response?.status === 401) {
           navigate('/admin/login');
         }
@@ -41,11 +41,12 @@ const AdminUsersPage = () => {
   return (
     <div>
       <Header />
+      <AdminTabs />
       <div className="admin-users-container">
         <div className="admin-users-header">
-          <h1>User Management</h1>
+          <h1>Управління користувачами</h1>
           <button onClick={handleAddUser} className="add-user-button">
-            Add New User
+            Додати нового користувача
           </button>
         </div>
         <UsersTable 

@@ -1,22 +1,22 @@
-.admin-users-container {
+.admin-events-container {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.admin-users-header {
+.admin-events-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.admin-users-header h1 {
+.admin-events-header h1 {
   margin: 0;
   color: #333;
 }
 
-.add-user-button {
+.add-event-button {
   background-color: #4caf50;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -27,7 +27,7 @@
   transition: background-color 0.2s;
 }
 
-.add-user-button:hover {
+.add-event-button:hover {
   background-color: #45a049;
 }
 
@@ -38,42 +38,42 @@
   align-items: center;
 }
 
-.users-table-wrapper {
+.events-table-wrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.users-table-container {
+.events-table-container {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
 }
 
-.users-table {
+.events-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.users-table th,
-.users-table td {
+.events-table th,
+.events-table td {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
 
-.users-table th {
+.events-table th {
   background-color: #f8f9fa;
   font-weight: 600;
   color: #333;
 }
 
-.users-table tbody tr:hover {
+.events-table tbody tr:hover {
   background-color: #f5f5f5;
 }
 
-.users-table td {
+.events-table td {
   color: #666;
 }
 

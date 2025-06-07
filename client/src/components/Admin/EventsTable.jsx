@@ -1,7 +1,7 @@
 import React from 'react';
-import '@/styles/AdminUsers.css';
+import '@/styles/AdminEvents.css';
 
-const UsersTable = ({ users, page, pages, setPage }) => {
+const EventsTable = ({ events, page, pages, setPage }) => {
   const handleNext = () => {
     setPage(page + 1);
     window.scrollTo({
@@ -19,24 +19,26 @@ const UsersTable = ({ users, page, pages, setPage }) => {
   };
 
   return (
-    <div className="users-table-wrapper">
-      <div className="users-table-container">
-        <table className="users-table">
+    <div className="events-table-wrapper">
+      <div className="events-table-container">
+        <table className="events-table">
           <thead>
             <tr>
-              <th>Ім'я</th>
-              <th>Електронна пошта</th>
-              <th>Роль</th>
-              <th>Дата створення</th>
+              <th>Назва</th>
+              <th>Опис</th>
+              <th>Категорія</th>
+              <th>Дата</th>
+              <th>Створено</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>{new Date(user.createdAt).toLocaleDateString('uk-UA')}</td>
+            {events.map((event) => (
+              <tr key={event._id}>
+                <td>{event.name}</td>
+                <td>{event.description}</td>
+                <td>{event.category?.name || 'Без категорії'}</td>
+                <td>{new Date(event.date).toLocaleString('uk-UA')}</td>
+                <td>{new Date(event.createdAt).toLocaleDateString('uk-UA')}</td>
               </tr>
             ))}
           </tbody>
@@ -63,4 +65,4 @@ const UsersTable = ({ users, page, pages, setPage }) => {
   );
 };
 
-export default UsersTable; 
+export default EventsTable; 
