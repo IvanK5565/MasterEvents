@@ -84,14 +84,14 @@ html, body {
 .event-details-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex: 1;
-  align-items: start;
+  padding: 0 1rem;
 }
 
 /* Event Card */
 .event-details-card {
-  margin-top: 16px;
+  margin: 0;
   max-width: 640px;
   background: white;
   border-radius: 12px;
@@ -135,8 +135,14 @@ html, body {
 
 /* Event Description */
 .event-description {
-  color: #4b5563;
-  margin-bottom: 24px;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
 }
 
 /* Event Info Grid */
@@ -176,35 +182,46 @@ html, body {
 /* Action Buttons */
 .event-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  margin-top: 24px;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.event-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
+.action-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.rsvp-button {
-  background-color: #3b82f6;
-  color: #ffffff;
+.action-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.rsvp-button:hover {
-  background-color: #2563eb;
+.action-button.green {
+  background-color: #10b981;
+  color: white;
 }
 
-.share-button {
-  background-color: #d1d5db;
-  color: #1f2937;
+.action-button.green:hover:not(:disabled) {
+  background-color: #059669;
 }
 
-.share-button:hover {
-  background-color: #b9c2cc;
+.action-button.red {
+  background-color: #ef4444;
+  color: white;
+}
+
+.action-button.red:hover:not(:disabled) {
+  background-color: #dc2626;
 }
 
 .event-date-card {

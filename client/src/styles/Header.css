@@ -14,7 +14,7 @@
     position: relative;
     overflow: visible;
     animation: slideDown 0.6s ease-out;
-    margin: 20px;
+    margin: 0 20px 20px 20px;
     box-sizing: border-box;
     letter-spacing: -0.025em;
 }
