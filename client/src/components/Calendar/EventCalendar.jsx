@@ -71,7 +71,8 @@ const EventCalendar = () => {
               key={dayNumber}
               className="calendar-day"
               style={{
-                backgroundColor: `rgba(0, 128, 0, ${Math.min(brightness / 100, 1)})`,
+                // backgroundColor: `rgba(0, 128, 0, ${Math.min(brightness / 100, 1)})`,
+                backgroundColor: `rgba(43, 108, 176, ${Math.min(brightness / 50, 1)})`,
               }}
             >
               <div className="day-number">{dayNumber}</div>
