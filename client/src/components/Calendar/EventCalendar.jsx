@@ -48,7 +48,7 @@ const EventCalendar = () => {
       <div className="calendar-header">
         <button onClick={() => handleMonthChange(-1)}>&lt;</button>
         <h2>
-          {currentYear} - {new Date(currentYear, currentMonth).toLocaleString("default", { month: "long" })}
+          {currentYear} - {new Date(currentYear, currentMonth).toLocaleString("uk", { month: "long" })}
         </h2>
         <button onClick={() => handleMonthChange(1)}>&gt;</button>
       </div>

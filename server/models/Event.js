@@ -4,6 +4,7 @@ const Event = mongoose.model("Event", mongoose.Schema({
   describe: String,
   date: { type: Date, required: true },
   category: { type: String, required: true },
+  venue: { type: String, required: true },
   created_at: { type: Date, default: Date.now() },
 }));
 

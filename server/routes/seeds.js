@@ -34,6 +34,7 @@ router.get('/', async (req, res) => {
                     rand(2) * 30,//min
                 ),
                 category: cats[rand(3)],
+                venue: `Venue ${i}`,
             })
             await event.save();
 

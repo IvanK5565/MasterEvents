@@ -53,6 +53,7 @@ const EventCard = ({ data }) => {
       <h3 className="event-name">{eventName}</h3>
       <p className="event-date">{eventDate}</p>
       <p className="event-id">Категорія: {category}</p>
+      <p className="event-id">Місце проведення: {data.venue}</p>
       <p className="event-id">Записались: {vote_count}</p>
 
       <div className="event-buttons">

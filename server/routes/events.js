@@ -73,18 +73,19 @@ router.get('/', async (req, res) => {
                 delete filter.name;
             }
         }
-        const skip = (parseInt(page) - 1) * 10;
-        const events = await Event.find(filter).skip(skip).limit(10);
+        const limit = 12;
+        const skip = (parseInt(page) - 1) * limit;
+        const events = await Event.find(filter).skip(skip).limit(limit);
 
         const total = await Event.countDocuments(filter);
-        let lastPage = Math.ceil(total / 10);
+        let lastPage = Math.ceil(total / limit);
         lastPage = lastPage == 0 ? 1 : lastPage;
 
         res.status(200).json({
             total: total,
             page: parseInt(page),
             pages: lastPage,
-            limit: 10,
+            limit: limit,
             events: events
         });
     } catch (err) {
@@ -114,12 +115,13 @@ router.get('/one/', async (req, res) => {
 });
 router.post('/', async (req, res) => {
     try {
-        const { name, describe, date, category } = req.body;
+        const { name, describe, date, category, venue } = req.body;
         const newEvent = new Event({
             name: name,
             describe: describe,
             date: date,
             category: category,
+            venue: venue
         })
         await newEvent.save();
         await Category.findOne({ name: category }).then(res => {
