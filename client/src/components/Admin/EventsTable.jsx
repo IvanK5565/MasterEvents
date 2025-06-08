@@ -27,6 +27,7 @@ const EventsTable = ({ events, page, pages, onPageChange }) => {
               <th>Назва</th>
               <th>Опис</th>
               <th>Категорія</th>
+              <th>Місце проведення</th>
               <th>Дата</th>
               <th>Створено</th>
             </tr>
@@ -37,6 +38,7 @@ const EventsTable = ({ events, page, pages, onPageChange }) => {
                 <td>{event.name}</td>
                 <td>{event.description}</td>
                 <td>{event.category?.name || 'Без категорії'}</td>
+                <td>{event.venue}</td>
                 <td>{new Date(event.date).toLocaleString('uk-UA')}</td>
                 <td>{new Date(event.createdAt).toLocaleDateString('uk-UA')}</td>
               </tr>

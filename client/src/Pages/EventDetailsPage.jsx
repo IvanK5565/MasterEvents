@@ -191,6 +191,12 @@ function EventDetailsPage() {
             <span className="event-category">{event.category}</span>
           </div>
 
+          {/* Event Venue */}
+          <div className="event-venue-container">
+            <h2 className="event-info-title">Місце проведення</h2>
+            <p className="event-venue">{event.venue}</p>
+          </div>
+
           {/* Event Description */}
           <p className="event-description">{event.description}</p>
 

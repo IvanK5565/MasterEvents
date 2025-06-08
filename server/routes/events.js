@@ -115,12 +115,13 @@ router.get('/one/', async (req, res) => {
 });
 router.post('/', async (req, res) => {
     try {
-        const { name, describe, date, category } = req.body;
+        const { name, describe, date, category, venue } = req.body;
         const newEvent = new Event({
             name: name,
             describe: describe,
             date: date,
             category: category,
+            venue: venue
         })
         await newEvent.save();
         await Category.findOne({ name: category }).then(res => {

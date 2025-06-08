@@ -12,7 +12,8 @@ const AdminEventCreatePage = () => {
     describe: '',
     date: '',
     time: '',
-    category: ''
+    category: '',
+    venue: ''
   });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
@@ -53,6 +54,10 @@ const AdminEventCreatePage = () => {
       newErrors.category = 'Категорія обов\'язкова';
     }
 
+    if (!formData.venue.trim()) {
+      newErrors.venue = 'Місце проведення обов\'язкове';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,7 +74,8 @@ const AdminEventCreatePage = () => {
         name: formData.name,
         describe: formData.describe,
         date: dateTime,
-        category: formData.category
+        category: formData.category,
+        venue: formData.venue
       };
 
       await axios.post(
@@ -135,6 +141,21 @@ const AdminEventCreatePage = () => {
               />
               {errors.describe && (
                 <span className="error-text">{errors.describe}</span>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="venue">Місце проведення</label>
+              <input
+                type="text"
+                id="venue"
+                name="venue"
+                value={formData.venue}
+                onChange={handleChange}
+                className={errors.venue ? 'error' : ''}
+              />
+              {errors.venue && (
+                <span className="error-text">{errors.venue}</span>
               )}
             </div>
 
