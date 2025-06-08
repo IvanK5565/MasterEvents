@@ -37,7 +37,7 @@ const EventsTable = ({ events, page, pages, onPageChange }) => {
               <tr key={event._id}>
                 <td>{event.name}</td>
                 <td>{event.describe}</td>
-                <td>{event.category?.name || 'Без категорії'}</td>
+                <td>{event.category || 'Без категорії'}</td>
                 <td>{event.venue}</td>
                 <td>{new Date(event.date).toLocaleString('uk-UA', {
                   day: '2-digit',
