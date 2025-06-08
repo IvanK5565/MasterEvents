@@ -216,18 +216,22 @@ function EventDetailsPage() {
 
           {/* Action Buttons */}
           <div className="event-actions">
-            {response ? (
-          <div>
-            <p>Ваш вибір: {response}</p>
-          </div>
-        ) : (<>
-            <button type="button" className="green_button vote-button" onClick={handleOpenModal} value={true}>
-              Піду
-            </button>
-            <button type="button" className="green_button vote-button" onClick={handleOpenModal} value={false}>
-              Не піду
-            </button>
-        </>)}
+            {localStorage.getItem('user') && (
+              response ? (
+                <div>
+                  <p>Ваш вибір: {response}</p>
+                </div>
+              ) : (
+                <>
+                  <button type="button" className="green_button vote-button" onClick={handleOpenModal} value={true}>
+                    Піду
+                  </button>
+                  <button type="button" className="green_button vote-button" onClick={handleOpenModal} value={false}>
+                    Не піду
+                  </button>
+                </>
+              )
+            )}
           </div>
         </div>
       </div>

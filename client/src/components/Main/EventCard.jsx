@@ -110,22 +110,24 @@ const EventCard = ({ data }) => {
       <p className="event-id">Записались: {voteCount}</p>
 
       <div className="event-buttons">
-        {userVote === true ? (
-          <button 
-            className="action-button red vote-button" 
-            onClick={() => handleVote(false)}
-            disabled={isLoading}
-          >
-            <span>Не піду</span>
-          </button>
-        ) : (
-          <button 
-            className="action-button green vote-button" 
-            onClick={() => handleVote(true)}
-            disabled={isLoading}
-          >
-            <span>Піду</span>
-          </button>
+        {localStorage.getItem('user') && (
+          userVote === true ? (
+            <button 
+              className="action-button red vote-button" 
+              onClick={() => handleVote(false)}
+              disabled={isLoading}
+            >
+              <span>Не піду</span>
+            </button>
+          ) : (
+            <button 
+              className="action-button green vote-button" 
+              onClick={() => handleVote(true)}
+              disabled={isLoading}
+            >
+              <span>Піду</span>
+            </button>
+          )
         )}
         <Link className="green_button" to={`/event/${id}`} state={data}>
           Детальніше
