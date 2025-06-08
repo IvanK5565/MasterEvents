@@ -176,7 +176,7 @@ function EventDetailsPage() {
       <div className="event-details-container">
         <div className="event-card">
           {/* Event Header */}
-          <h1 className="event-title">{event.name+' '}
+          <h1 className="event-details-title">{event.name+' '}
             <div className="event-date-card">
               <div>
                 <div className="date-day">{day}</div>
