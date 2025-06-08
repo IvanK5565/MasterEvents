@@ -28,7 +28,7 @@
 }
 
 .admin-tab.active {
-  color: #4caf50;
+  color: #2b6cb0;
   font-weight: 500;
 }
 
@@ -39,5 +39,5 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #4caf50;
+  background-color: #2b6cb0;
 } 
