@@ -112,7 +112,6 @@ const StatisticsPage = () => {
 
         <Statistics statistics={statistics} months={months} year={currentYear} />
       </div>
-      <Footer />
     </>
   );
 };
