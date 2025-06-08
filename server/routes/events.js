@@ -31,17 +31,21 @@ const isAdmin = async (req, res, next) => {
 // Admin route for getting all events with pagination
 router.get('/admin', isAdmin, async (req, res) => {
   try {
-    const { page = 1 } = req.query;
+    const { page = 1, search = '' } = req.query;
     const limit = 10;
     const skip = (parseInt(page) - 1) * limit;
 
-    const events = await Event.find()
+    const searchQuery = search
+      ? { name: { $regex: search, $options: 'i' } }
+      : {};
+
+    const events = await Event.find(searchQuery)
       .sort({ date: 1 })
       .skip(skip)
       .limit(limit)
       .populate('category');
 
-    const total = await Event.countDocuments();
+    const total = await Event.countDocuments(searchQuery);
     const lastPage = Math.max(1, Math.ceil(total / limit));
 
     res.status(200).json({

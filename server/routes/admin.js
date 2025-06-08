@@ -9,25 +9,38 @@ const Category = require("../models/Category");
 // Login route
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, isGuest } = req.body;
 
     // Validate input
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email and password are required" });
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
     }
 
     // Find user
     const user = await User.findOne({ email });
-    if (!user || !user.password) {
-      return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
     }
 
-    // Check password
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
+    // Handle guest login
+    if (isGuest) {
+      if (user.role !== 'guest') {
+        return res.status(401).json({ message: "Invalid login type" });
+      }
+    } else {
+      // Handle admin login
+      if (!password) {
+        return res.status(400).json({ message: "Password is required" });
+      }
+
+      if (!user.password) {
+        return res.status(401).json({ message: "Invalid login type" });
+      }
+
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
     }
 
     // Create JWT token

@@ -10,6 +10,7 @@ const AdminUserCreatePage = () => {
     name: '',
     email: '',
     password: '',
+    role: 'guest', // Default role
   });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
@@ -27,10 +28,13 @@ const AdminUserCreatePage = () => {
       newErrors.email = 'Email is invalid';
     }
 
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    // Only validate password for admin role
+    if (formData.role === 'admin') {
+      if (!formData.password) {
+        newErrors.password = 'Password is required';
+      } else if (formData.password.length < 6) {
+        newErrors.password = 'Password must be at least 6 characters';
+      }
     }
 
     setErrors(newErrors);
@@ -42,9 +46,14 @@ const AdminUserCreatePage = () => {
     if (!validateForm()) return;
 
     try {
+      const dataToSend = {
+        ...formData,
+        password: formData.role === 'guest' ? null : formData.password,
+      };
+
       await axios.post(
         'http://localhost:8080/api/users/store',
-        formData,
+        dataToSend,
         { withCredentials: true }
       );
       navigate('/admin/users');
@@ -110,19 +119,35 @@ const AdminUserCreatePage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
+              <label htmlFor="role">Role</label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
                 onChange={handleChange}
-                className={errors.password ? 'error' : ''}
-              />
-              {errors.password && (
-                <span className="error-text">{errors.password}</span>
-              )}
+                className="role-select"
+              >
+                <option value="admin">Admin</option>
+                <option value="guest">Guest</option>
+              </select>
             </div>
+
+            {formData.role === 'admin' && (
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={errors.password ? 'error' : ''}
+                />
+                {errors.password && (
+                  <span className="error-text">{errors.password}</span>
+                )}
+              </div>
+            )}
 
             <div className="button-group">
               <button type="submit" className="submit-button">

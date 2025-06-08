@@ -25,15 +25,19 @@ const isAdmin = async (req, res, next) => {
 // Get all users with pagination (admin only)
 router.get('/all', isAdmin, async (req, res) => {
   try {
-    const { page = 1 } = req.query;
+    const { page = 1, search = '' } = req.query;
     const limit = 10;
     const skip = (parseInt(page) - 1) * limit;
 
-    const users = await User.find({}, '-password')
+    const searchQuery = search
+      ? { name: { $regex: search, $options: 'i' } }
+      : {};
+
+    const users = await User.find(searchQuery, '-password')
       .skip(skip)
       .limit(limit);
 
-    const total = await User.countDocuments();
+    const total = await User.countDocuments(searchQuery);
     const lastPage = Math.max(1, Math.ceil(total / limit));
 
     res.status(200).json({
@@ -73,7 +77,7 @@ router.get('/create', isAdmin, (req, res) => {
 // Store new user (admin only)
 router.post('/store', isAdmin, async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Validate required fields
     if (!name || !email) {
@@ -91,7 +95,7 @@ router.post('/store', isAdmin, async (req, res) => {
       name,
       email,
       password: password || null,
-      role: 'admin' // All users are admins as per the schema
+      role: role || 'guest' // Default to guest if role is not specified
     });
 
     await newUser.save();
