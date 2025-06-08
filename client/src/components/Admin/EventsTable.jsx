@@ -36,11 +36,21 @@ const EventsTable = ({ events, page, pages, onPageChange }) => {
             {events.map((event) => (
               <tr key={event._id}>
                 <td>{event.name}</td>
-                <td>{event.description}</td>
+                <td>{event.describe}</td>
                 <td>{event.category?.name || 'Без категорії'}</td>
                 <td>{event.venue}</td>
-                <td>{new Date(event.date).toLocaleString('uk-UA')}</td>
-                <td>{new Date(event.createdAt).toLocaleDateString('uk-UA')}</td>
+                <td>{new Date(event.date).toLocaleString('uk-UA', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}</td>
+                <td>{event.created_at ? new Date(event.created_at).toLocaleDateString('uk-UA', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric'
+                }) : 'Не вказано'}</td>
               </tr>
             ))}
           </tbody>
