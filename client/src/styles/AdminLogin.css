@@ -87,9 +87,14 @@
   display: block;
 }
 
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .form-group input:focus {
   border-color: #667eea;
   outline: none;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .form-group input.error {
@@ -103,28 +108,20 @@
   display: block;
 }
 
-/* Кнопка отправки */
+/* Общие стили для всех кнопок в форме */
 button[type="submit"] {
-  width: 100%;
-  height: 45px;
-  padding: 0 1rem;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  border: none;
+  width: 80%;
+  padding: 12px 24px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.5px;
-  color: #ffffff;
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: #ffffff;
+  border: none;
   margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
 }
-
 
 button[type="submit"]:hover {
   transform: translateY(-2px);
@@ -223,4 +220,72 @@ button[type="submit"]:disabled {
     padding: 10px 16px;
     font-size: 14px;
   }
+}
+
+/* Стили для кнопки назад */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+.back-button:before {
+  content: '←';
+  font-size: 20px;
+}
+
+/* Специальные стили для группы кнопок на втором шаге */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.button-group button {
+  width: auto;
+  min-width: 120px;
+  max-width: 150px;
+  margin: 0;
+}
+
+.button-group button[type="button"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-group button[type="button"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }

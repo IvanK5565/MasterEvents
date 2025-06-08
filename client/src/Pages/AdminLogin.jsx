@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/AdminLogin.css";
 
@@ -109,8 +109,11 @@ const AdminLogin = () => {
 
   return (
     <div className="admin-login-container">
+      <Link to="/" className="back-button">
+        Назад
+      </Link>
       <div className="login-box">
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         {serverError && <div className="error-message">{serverError}</div>}
         
         {!foundUser || foundUser.role !== 'admin' ? (

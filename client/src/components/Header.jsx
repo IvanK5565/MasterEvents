@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "@/styles/Header.css";
@@ -8,6 +8,8 @@ const Header = ({ setFilter }) => {
   const [nameInput, setNameInput] = useState("");
   const [categoryInput, setCategoryInput] = useState("");
   const [user, setUser] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
@@ -20,6 +22,18 @@ const Header = ({ setFilter }) => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+
+    // Add click outside listener
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleSearch = () => {
@@ -45,10 +59,15 @@ const Header = ({ setFilter }) => {
       });
       localStorage.removeItem('user');
       setUser(null);
+      setIsDropdownOpen(false);
       navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -90,19 +109,28 @@ const Header = ({ setFilter }) => {
       </div>
       <div className="auth-section">
         {user ? (
-          <div className="user-info">
-            {user.role === 'admin' ? (
-              <Link to="/admin/users" className="user-email">
-                {user.email}
-              </Link>
-            ) : (
-              <span className="user-email guest-email">
-                {user.email}
-              </span>
-            )}
-            <button onClick={handleLogout} className="white_button">
-              Вийти
-            </button>
+          <div className="user-info" ref={dropdownRef}>
+            <div 
+              className={`user-email ${isDropdownOpen ? 'active' : ''}`}
+              onClick={toggleDropdown}
+            >
+              {user.email}
+            </div>
+            <div className={`dropdown-menu ${isDropdownOpen ? 'active' : ''}`}>
+              {user.role === 'admin' && (
+                <Link to="/admin/users" className="dropdown-item">
+                  Управління користувачами
+                </Link>
+              )}
+              {user.role === 'admin' && (
+                <Link to="/admin/events" className="dropdown-item">
+                Управління подіями
+                </Link>
+              )}
+              <button onClick={handleLogout} className="dropdown-item logout">
+                Вийти
+              </button>
+            </div>
           </div>
         ) : (
           <button onClick={handleLogin} className="white_button login-button">
