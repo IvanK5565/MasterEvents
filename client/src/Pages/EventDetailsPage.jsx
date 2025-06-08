@@ -201,16 +201,27 @@ function EventDetailsPage() {
           <p className="event-description">{event.description}</p>
 
           {/* Attendees Section */}
-          <div>
-            <h2 className="event-info-title">Записано {vote_count}</h2>
-            {attendees.length > 0 ? (<>
-              <ul className="event-attendees-list">
+          <div className="attendees-section">
+            <h2 className="event-info-title">
+              <span className="attendees-icon">👥</span>
+              Записані учасники ({vote_count})
+            </h2>
+            {attendees.length > 0 ? (
+              <div className="attendees-list">
                 {attendees.map((attendee, index) => (
-                  <li key={index}>{attendee.name}: {attendee.email}</li>
+                  <div key={index} className="attendee-card">
+                    <div className="attendee-avatar">
+                      {attendee.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="attendee-info">
+                      <span className="attendee-name">{attendee.name}</span>
+                      <span className="attendee-email">{attendee.email}</span>
+                    </div>
+                  </div>
                 ))}
-              </ul></>
+              </div>
             ) : (
-              <p className="event-info-text">No attendees yet.</p>
+              <p className="no-attendees">Поки що ніхто не записався на цю подію</p>
             )}
           </div>
 

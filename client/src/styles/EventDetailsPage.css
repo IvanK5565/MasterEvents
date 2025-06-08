@@ -241,3 +241,84 @@ html, body {
   font-weight: bold;
   color: #444;
 }
+
+/* Attendees Section */
+.attendees-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-info-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.attendees-icon {
+  font-size: 1.5rem;
+}
+
+.attendees-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.attendee-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.attendee-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.attendee-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.attendee-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.attendee-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.attendee-email {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.no-attendees {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
