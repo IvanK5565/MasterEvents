@@ -1,9 +1,9 @@
 import React from 'react';
 import '@/styles/AdminEvents.css';
 
-const EventsTable = ({ events, page, pages, setPage }) => {
+const EventsTable = ({ events, page, pages, onPageChange }) => {
   const handleNext = () => {
-    setPage(page + 1);
+    onPageChange(page + 1);
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -11,7 +11,7 @@ const EventsTable = ({ events, page, pages, setPage }) => {
   };
 
   const handlePrevious = () => {
-    setPage(page - 1);
+    onPageChange(page - 1);
     window.scrollTo({
       top: 0,
       behavior: 'smooth'

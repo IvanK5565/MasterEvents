@@ -113,7 +113,7 @@ const AdminLogin = () => {
         Назад
       </Link>
       <div className="login-box">
-        <h2>Admin Login</h2>
+        <h2>Вхід</h2>
         {serverError && <div className="error-message">{serverError}</div>}
         
         {!foundUser || foundUser.role !== 'admin' ? (

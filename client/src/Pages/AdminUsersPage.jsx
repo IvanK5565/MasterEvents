@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '@/components/Header';
@@ -12,31 +12,40 @@ const AdminUsersPage = () => {
   useAuthCheck();
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
+  const [pages, setPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchUsers = async (currentPage, search) => {
+  const fetchUsers = useCallback(async (currentPage, search) => {
+    setIsLoading(true);
     try {
       const response = await axios.get('http://localhost:8080/api/users/all', {
         params: { page: currentPage, search },
         withCredentials: true
       });
-      const { users, pages, page: responsePage } = response.data;
+      const { users, pages: totalPages } = response.data;
       setUsers(users);
-      setPage(responsePage);
-      setLastPage(pages);
+      setPages(totalPages);
     } catch (error) {
       console.error('Помилка отримання користувачів:', error);
       if (error.response?.status === 401) {
         navigate('/admin/login');
       }
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchUsers(page, searchTerm);
-  }, [navigate, page, searchTerm]);
+  }, [fetchUsers, page, searchTerm]);
+
+  const handlePageChange = useCallback((newPage) => {
+    if (!isLoading) {
+      setPage(newPage);
+    }
+  }, [isLoading]);
 
   const handleSearch = (search) => {
     setSearchTerm(search);
@@ -65,8 +74,8 @@ const AdminUsersPage = () => {
         <UsersTable 
           users={users}
           page={page}
-          lastPage={lastPage}
-          setPage={setPage}
+          pages={pages}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>

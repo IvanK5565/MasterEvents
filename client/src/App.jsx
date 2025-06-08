@@ -10,6 +10,7 @@ import AdminEventsPage from "./Pages/AdminEventsPage";
 import AdminUserCreatePage from "./Pages/AdminUserCreatePage";
 import AdminEventCreatePage from "./Pages/AdminEventCreatePage";
 import ProtectedLoginRoute from "./components/ProtectedLoginRoute";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const events = [
     {
@@ -39,7 +40,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/statistics" element={<StatisticsPage events={events} />} />
+        <Route 
+          path="/statistics" 
+          element={
+            <ProtectedAdminRoute>
+              <StatisticsPage events={events} />
+            </ProtectedAdminRoute>
+          } 
+        />
         <Route path="/event/:id" element={<EventDetailsPage />} />
         <Route 
           path="/admin/login" 

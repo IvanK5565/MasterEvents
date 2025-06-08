@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '@/components/Header';
@@ -12,31 +12,40 @@ const AdminEventsPage = () => {
   useAuthCheck();
   const [events, setEvents] = useState([]);
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
+  const [pages, setPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const fetchEvents = async (currentPage, search) => {
+  const fetchEvents = useCallback(async (currentPage, search) => {
+    setIsLoading(true);
     try {
       const response = await axios.get('http://localhost:8080/api/events/admin', {
         params: { page: currentPage, search },
         withCredentials: true
       });
-      const { events, pages, page: responsePage } = response.data;
+      const { events, pages: totalPages } = response.data;
       setEvents(events);
-      setPage(responsePage);
-      setLastPage(pages);
+      setPages(totalPages);
     } catch (error) {
       console.error('Помилка отримання подій:', error);
       if (error.response?.status === 401) {
         navigate('/admin/login');
       }
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchEvents(page, searchTerm);
-  }, [navigate, page, searchTerm]);
+  }, [fetchEvents, page, searchTerm]);
+
+  const handlePageChange = useCallback((newPage) => {
+    if (!isLoading) {
+      setPage(newPage);
+    }
+  }, [isLoading]);
 
   const handleSearch = (search) => {
     setSearchTerm(search);
@@ -65,8 +74,8 @@ const AdminEventsPage = () => {
         <EventsTable 
           events={events}
           page={page}
-          lastPage={lastPage}
-          setPage={setPage}
+          pages={pages}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>
