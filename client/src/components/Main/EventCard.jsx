@@ -14,7 +14,13 @@ const EventCard = ({ data }) => {
   const category = data.category;
   const id = data._id;
   const eventName = data.name;
-  const eventDate = new Date(data.date).toLocaleString();
+  const eventDate = new Date(data.date).toLocaleString('uk-UA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 
   const handleOpenModal = (v) => {
     setShowModal(true);
@@ -45,25 +51,27 @@ const EventCard = ({ data }) => {
   return (
     <div className="event-card">
       <h3 className="event-name">{eventName}</h3>
-      <p className="event-date">Дата: {eventDate}</p>
+      <p className="event-date">{eventDate}</p>
       <p className="event-id">Категорія: {category}</p>
       <p className="event-id">Записались: {vote_count}</p>
 
-      {response ? (
-        <div>
-          <p>Ваш вибір: {response}</p>
-        </div>
-      ) : (
-        <div>
-          <button className="green_button vote-button" onClick={handleOpenModal} value={true}>
-            Піду
-          </button>
-          <button className="green_button vote-button" onClick={handleOpenModal} value={false}>
-            Не піду
-          </button>
-        </div>
-      )}
-      <Link margin="5px" className="green_button vote-button" to={`/event/${id}`} state={data}>Детальніше</Link>
+      <div className="event-buttons">
+        {response ? (
+          <p>Ваш вибір: {response === "true" ? "Піду" : "Не піду"}</p>
+        ) : (
+          <>
+            <button className="action-button green vote-button" onClick={handleOpenModal} value={true}>
+              <span>Піду</span>
+            </button>
+            <button className="action-button red vote-button" onClick={handleOpenModal} value={false}>
+              <span>Не піду</span>
+            </button>
+          </>
+        )}
+        <Link className="green_button" to={`/event/${id}`} state={data}>
+          Детальніше
+        </Link>
+      </div>
 
       {showModal && <Modal setShowModal={setShowModal} confirmResponse={confirmResponce} />}
     </div>
