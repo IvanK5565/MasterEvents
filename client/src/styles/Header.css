@@ -1,87 +1,261 @@
+/* Header.css - Современный дизайн */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #4caf50;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    gap: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 16px 24px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    gap: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: slideDown 0.6s ease-out;
+    margin: 20px;
+    box-sizing: border-box;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 300% 100%;
+    animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .nav-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 12px;
+    align-items: center;
+}
+
+.white_button {
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    display: inline-block;
+}
+
+.white_button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+    background: linear-gradient(145deg, #667eea, #764ba2);
+    color: white;
 }
 
 .search-container {
     display: flex;
-    gap: 1rem;
     align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: center;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 16px 20px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .search-input {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 14px 18px;
+    font-size: 15px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    outline: none;
+    width: 220px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.search-input:focus {
+    border-color: #667eea;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+.search-input::placeholder {
+    color: #a0aec0;
+    font-weight: 400;
 }
 
 .dropdown {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.button {
-    padding: 8px 16px;
-    font-size: 16px;
-    color: #000000;
-    background-color: #00ff37;
-    border: none;
-    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 15px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #2d3748;
+    min-width: 180px;
 }
 
-.button:hover {
-    background-color: #0056b3;
+.dropdown:focus {
+    border-color: #667eea;
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
-.login-button {
-    white-space: nowrap;
+/* Специальная кнопка поиска */
+.search-container .white_button {
+    background: linear-gradient(145deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.search-container .white_button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.search-container .white_button:hover {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.search-container .white_button:hover::before {
+    left: 100%;
 }
 
 .auth-section {
     display: flex;
     align-items: center;
+    min-width: 120px;
+    justify-content: flex-end;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 12px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
 }
 
 .user-email {
-    color: white;
+    color: #4a5568;
+    font-weight: 600;
     text-decoration: none;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .user-email:hover {
-    background-color: #444;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
 }
 
-.guest-email {
+/* Кнопка выхода */
+.user-info .white_button {
+    color: #e53e3e;
+    background: linear-gradient(145deg, #fed7d7, #fbb6ce);
+}
+
+.user-info .white_button:hover {
+    background: linear-gradient(145deg, #fc8181, #f56565);
     color: white;
-    cursor: default;
 }
 
-.guest-email:hover {
-    background-color: transparent;
+/* Кнопка входа */
+.login-button {
+    color: #667eea !important;
+    background: linear-gradient(145deg, #e6fffa, #bee3f8) !important;
 }
-  
+
+.login-button:hover {
+    background: linear-gradient(145deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 16px;
+    }
+
+    .search-container {
+        max-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-input {
+        width: 180px;
+    }
+
+    .nav-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Дополнительные утилиты */
+.button {
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
