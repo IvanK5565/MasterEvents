@@ -25,7 +25,7 @@ const Statistics = ({ statistics, months, year }) => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="totalEvents" name="Кількість подій" fill="#4caf50" />
+                    <Bar dataKey="totalEvents" name="Кількість подій" fill="#2b6cb0" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
