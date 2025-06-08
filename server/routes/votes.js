@@ -24,11 +24,44 @@ const getUserFromToken = async (req, res, next) => {
 router.get('/count', async (req, res) => {
   try {
     const { id, vote } = req.query;
+    if (!id || !vote) {
+      return res.status(400).json({ message: 'Missing required parameters' });
+    }
     const count = await Vote.countDocuments({ event_id: id, vote: vote === 'true' });
     res.status(200).json(count);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Помилка підрахунку голосів' });
+  }
+});
+
+// Get all votes
+router.get('/', async (req, res) => {
+  try {
+    const votes = await Vote.find();
+    res.status(200).json(votes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Помилка отримання голосів' });
+  }
+});
+
+// Get guests for an event
+router.get('/guests', async (req, res) => {
+  try {
+    const { id } = req.query;
+    if (!id) {
+      return res.status(400).json({ message: 'Missing event ID' });
+    }
+    const votes = await Vote.find({
+      event_id: id,
+      vote: true
+    }).populate('user_id');
+    const users = votes.map(vote => vote.user_id);
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Помилка отримання гостей' });
   }
 });
 
