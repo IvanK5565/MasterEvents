@@ -77,9 +77,11 @@ const Header = ({ setFilter }) => {
         <Link to="/calendar" className="white_button">
           Календар
         </Link>
-        <Link to="/statistics" className="white_button">
-          Статистика
-        </Link>
+        {user?.role === 'admin' && (
+          <Link to="/statistics" className="white_button">
+            Статистика
+          </Link>
+        )}
       </div>
       <div className="search-container">
         <input
