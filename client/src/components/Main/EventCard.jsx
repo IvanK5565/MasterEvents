@@ -103,11 +103,13 @@ const EventCard = ({ data }) => {
 
   return (
     <div className="event-card">
-      <h3 className="event-name">{eventName}</h3>
-      <p className="event-date">{eventDate}</p>
-      <p className="event-id">Категорія: {category}</p>
-      <p className="event-id">Місце проведення: {data.venue}</p>
-      <p className="event-id">Записались: {voteCount}</p>
+      <div className="event-card-content">
+        <h3 className="event-name">{eventName}</h3>
+        <p className="event-date">{eventDate}</p>
+        <p className="event-id">Категорія: {category}</p>
+        <p className="event-id">Місце проведення: {data.venue}</p>
+        <p className="event-id">Записались: {voteCount}</p>
+      </div>
 
       <div className="event-buttons">
         {localStorage.getItem('user') && (
