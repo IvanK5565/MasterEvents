@@ -160,7 +160,7 @@ const AdminLogin = () => {
             </div>
             <div className="button-group">
               <button type="submit">Login</button>
-              <button type="button" onClick={() => {
+              <button type="button" className="back-login-button" onClick={() => {
                 setFoundUser(null);
                 setPassword("");
                 setErrors({});
