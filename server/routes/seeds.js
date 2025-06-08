@@ -51,7 +51,8 @@ router.get('/', async (req, res) => {
         const adminUser = new User({
             name: "Admin",
             email: `admin@example.com`,
-            password: 'password' // Adding a password for admin user
+            password: 'password',
+            role: 'admin'
         })
         await adminUser.save();
         users.push(adminUser);
