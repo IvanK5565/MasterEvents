@@ -59,7 +59,7 @@ html, body {
 }
 
 .event-buttons button:not(:disabled):first-child {
-  background-color: #4caf50;
+  background-color: #2b6cb0;
   color: white;
 }
 
