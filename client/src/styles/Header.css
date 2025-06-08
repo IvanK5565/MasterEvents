@@ -16,6 +16,7 @@
     animation: slideDown 0.6s ease-out;
     margin: 20px;
     box-sizing: border-box;
+    letter-spacing: -0.025em;
 }
 
 .header::before {
@@ -66,6 +67,7 @@
     border: 1px solid rgba(255, 255, 255, 0.8);
     cursor: pointer;
     display: inline-block;
+    letter-spacing: -0.025em;
 }
 
 .white_button:hover {
@@ -101,6 +103,7 @@
     transition: all 0.3s ease;
     font-weight: 500;
     color: #2d3748;
+    letter-spacing: -0.025em;
 }
 
 .search-input:focus {
@@ -125,7 +128,8 @@
     transition: all 0.3s ease;
     font-weight: 500;
     color: #2d3748;
-    min-width: 180px;
+    min-width: 220px;
+    letter-spacing: -0.025em;
 }
 
 .dropdown:focus {
@@ -206,6 +210,7 @@
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.025em;
 }
 
 .user-email:hover {
@@ -267,6 +272,7 @@
     text-align: left;
     cursor: pointer;
     margin: 2px 0;
+    letter-spacing: -0.025em;
 }
 
 .dropdown-item:hover {
@@ -321,10 +327,17 @@
         max-width: 100%;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 12px;
     }
 
     .search-input {
-        width: 180px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .dropdown {
+        width: 100%;
+        max-width: none;
     }
 
     .nav-buttons {
@@ -347,4 +360,9 @@
 
 .button:hover {
     transform: translateY(-2px);
+}
+
+/* Typography enhancements */
+.header, .button, .dropdown-item, .search-input, .dropdown {
+    letter-spacing: -0.025em;
 }
