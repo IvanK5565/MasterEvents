@@ -48,8 +48,12 @@ const AdminUsersPage = () => {
   }, [isLoading]);
 
   const handleSearch = (search) => {
-    setSearchTerm(search);
-    setPage(1); // Reset to first page when searching
+    if (search !== searchTerm) {
+      setSearchTerm(search);
+      if (search || (!search && page > 1)) {
+        setPage(1);
+      }
+    }
   };
 
   const handleAddUser = () => {
