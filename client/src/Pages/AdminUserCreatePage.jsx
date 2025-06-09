@@ -19,21 +19,21 @@ const AdminUserCreatePage = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Ім'я обов'язкове";
     }
 
     if (!formData.email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email обов'язковий";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'Email недійсний';
     }
 
     // Only validate password for admin role
     if (formData.role === 'admin') {
       if (!formData.password) {
-        newErrors.password = 'Password is required';
+        newErrors.password = "Пароль обов'язковий";
       } else if (formData.password.length < 6) {
-        newErrors.password = 'Password must be at least 6 characters';
+        newErrors.password = 'Пароль має бути не менше 6 символів';
       }
     }
 
@@ -58,7 +58,7 @@ const AdminUserCreatePage = () => {
       );
       navigate('/admin/users');
     } catch (error) {
-      setServerError(error.response?.data?.message || 'Failed to create user');
+      setServerError(error.response?.data?.message || 'Не вдалося створити користувача');
     }
   };
 
@@ -78,18 +78,22 @@ const AdminUserCreatePage = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/admin/users');
+  };
+
   return (
     <div>
       <Header />
       <div className="admin-user-create-container">
         <div className="admin-user-create-card">
-          <h1>Create New User</h1>
+          <h1>Створити нового користувача</h1>
           {serverError && (
             <div className="error-message">{serverError}</div>
           )}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Ім'я</label>
               <input
                 type="text"
                 id="name"
@@ -119,22 +123,26 @@ const AdminUserCreatePage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="role">Role</label>
+              <label htmlFor="role">Роль</label>
               <select
                 id="role"
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                className="role-select"
+                className={errors.role ? 'error' : ''}
               >
-                <option value="admin">Admin</option>
-                <option value="guest">Guest</option>
+                <option value="">Оберіть роль</option>
+                <option value="user">Користувач</option>
+                <option value="admin">Адміністратор</option>
               </select>
+              {errors.role && (
+                <span className="error-text">{errors.role}</span>
+              )}
             </div>
 
             {formData.role === 'admin' && (
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Пароль</label>
                 <input
                   type="password"
                   id="password"
@@ -151,14 +159,14 @@ const AdminUserCreatePage = () => {
 
             <div className="button-group">
               <button type="submit" className="submit-button">
-                Create User
+                Створити
               </button>
               <button
                 type="button"
-                onClick={() => navigate('/admin/users')}
                 className="cancel-button"
+                onClick={handleCancel}
               >
-                Cancel
+                Скасувати
               </button>
             </div>
           </form>
