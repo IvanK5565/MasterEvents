@@ -69,6 +69,10 @@
     justify-content: space-between;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+    max-width: 100px;
+    min-width: 50px;
+    max-height: 120px;
+    min-height: 60px;
   }
   
   .calendar-day.empty {
